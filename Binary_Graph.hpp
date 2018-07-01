@@ -1,4 +1,3 @@
-#include "Graph.hpp"
 //n - The number of vertex in the left part
 //m - The number of vertex in the right part
 //k - The number of edges
@@ -12,6 +11,7 @@
 //pair<VI,VI> Minimum_Vertex_Coverage() - Return the minimum vertex coverage of the binary graph
 //pair<VI,VI> Largest_Independent_Set() - Return the Largest independent set of the binary graph
 //pair<VI,VI> Maximum_Clique() - Return the maximum clique of the binary graph
+#include "Graph.hpp"
 struct Binary_Graph{
 	Graph G;int n,m,k,lky[N],lkx[N];
 	private:
