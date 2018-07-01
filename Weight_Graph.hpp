@@ -27,5 +27,5 @@ template<typename T> struct Weight_Graph{
 		n=G.n;m=G.m;
 		fr(i,n)V[i]=G.V[i];
 	}
-	void ins(int x,int y,T z){V[x].PB(MP(y,z));m++;}//加入一条从x到y权值为z的边
+	void ins(int x,int y,T z){V[x].PB(MP(y,z));m++;}
 };
