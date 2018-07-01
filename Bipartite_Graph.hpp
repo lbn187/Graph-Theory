@@ -3,16 +3,16 @@
 //k - The number of edges
 //lk[i] - The vertex match the right part vertex i
 //lkx[i] - The vertex match the left part vertex i
-//Binary_Graph(n,m) - Make a Binary_Graph struct with n vertexs in the left part and m vertexs in the right part
-//Binary_Graph(G,n,m) - Make a Binary_Graph struct with n vertexs in the left part and m vertexs in the right part and based on Graph G
+//Bipartite_Graph(n,m) - Make a Bipartite_Graph struct with n vertexs in the left part and m vertexs in the right part
+//Bipartite_Graph(G,n,m) - Make a Bipartite_Graph struct with n vertexs in the left part and m vertexs in the right part and based on Graph G
 //ins(x,y) - Add an edge from left part vertex x to right part vertex y
-//Hungary(n) - Use Hungary algorithm to solve the maximum match of graph, which time complexity is O(nm)
+//Hungary(n) - Use Hungary algorithm to solve the maximum match of Bipartite_Graph, which time complexity is O(nm)
 //print() - Print the maximum match scheme
-//pair<VI,VI> Minimum_Vertex_Coverage() - Return the minimum vertex coverage of the binary graph
-//pair<VI,VI> Largest_Independent_Set() - Return the Largest independent set of the binary graph
-//pair<VI,VI> Maximum_Clique() - Return the maximum clique of the binary graph
+//pair<VI,VI> Minimum_Vertex_Coverage() - Return the minimum vertex coverage of the Bipartite_Graph
+//pair<VI,VI> Largest_Independent_Set() - Return the Largest independent set of the Bipartite_Graph
+//pair<VI,VI> Maximum_Clique() - Return the maximum clique of the Bipartite_Graph
 #include "Graph.hpp"
-struct Binary_Graph{
+struct Bipartite_Graph{
 	Graph G;int n,m,k,lky[N],lkx[N];
 	private:
 		int v[N];bool vl[N],vr[N];
@@ -34,8 +34,8 @@ struct Binary_Graph{
 			fr(i,n)if(!lkx[i])get(i);
 		}
 	public:
-		Binary_Graph(int _n,int _m){n=_n;m=_m;k=0;}
-		Binary_Graph(Graph _G,int _n,int _m){G=_G;n=_n;m=_m;k=G.m;}
+		Bipartite_Graph(int _n,int _m){n=_n;m=_m;k=0;}
+		Bipartite_Graph(Graph _G,int _n,int _m){G=_G;n=_n;m=_m;k=G.m;}
 		void ins(int x,int y){G.ins(x,y);}
 		int Hungary(){
 			int an=0;
@@ -62,7 +62,7 @@ struct Binary_Graph{
 			return MP(VL,VR);
 		}
 		pair<VI,VI> Maximum_Clique(){
-			Binary_Graph W(Anti_Graph(G),n,m);
+			Bipartite_Graph W(Anti_Graph(G),n,m);
 			return W.Largest_Independent_Set();
 		}
 };
