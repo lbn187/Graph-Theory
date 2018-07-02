@@ -10,6 +10,7 @@
 //void SPFA() - Use SPFA algorithim to solve the shortest path problem, which time complexity is O(nm)
 //void Dijkstra() - Use optimazed Dijkstra algorithm to solve the shortest path problem, which time complexity is O(mlogm)
 //bool nega_ring() - Check whether the nega ring exists in the graph, which time complexity is O(m)
+//Weight_Graph<T> Shortest_Path_Topology() - Return all the edges in the shortest path, which make up a topology.
 //void print() - Print the distance from the vertex S to each vertex
 #include "Weight_Graph.hpp"
 template<typename T> struct Shortest_Path{
@@ -60,6 +61,13 @@ template<typename T> struct Shortest_Path{
 			fr(i,n)d[i]=v[i]=0;
 			fr(i,n)if(dfs(i))return 1;
 			return 0;
+		}
+		Weight_Graph<T> Shortest_Path_Topology(){
+			Dijkstra();
+			Weight_Graph<T> W(n);
+			fr(x,n)for(pair<int,T> o:G.V[x])
+				if(d[x]+o.Y==d[o.X])W.ins(x,o.X,o.Y);
+			return W;
 		}
 		void print(){
 			fr(i,n)cout<<d[i]<<i==n?'\n':' '; 
