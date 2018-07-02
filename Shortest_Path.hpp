@@ -40,23 +40,23 @@ template<typename T> struct Shortest_Path{
 			d[S]=0;
 		}
 		void ins(int x,int y,T z){G.ins(x,y,z);}
-    	void SPFA(){
-    	    int x,y;queue<int>Q;Q.push(S);start();
-    	    for(d[S]=0;!Q.empty();v[x]=0,Q.pop())
-    	    	for(pair<int,T> o:G.V[x=Q.front()])
+		void SPFA(){
+			int x,y;queue<int>Q;Q.push(S);start();
+			for(d[S]=0;!Q.empty();v[x]=0,Q.pop())
+				for(pair<int,T> o:G.V[x=Q.front()])
 					if(d[x]+o.Y<d[y=o.X])
 						if(d[y]=d[x]+o.Y,!v[y])
 							v[y]=1,Q.push(y); 
-    	}
-    	void Dijkstra(){
-    		priority_queue<pair<T,int> >Q;int x,y;start();
-    	    for(Q.push(MP(0,S));!Q.empty();v[x]=1)
-    	        if(x=Q.top().Y,Q.pop(),!v[x])
+		}
+		void Dijkstra(){
+			priority_queue<pair<T,int> >Q;int x,y;start();
+			for(Q.push(MP(0,S));!Q.empty();v[x]=1)
+				if(x=Q.top().Y,Q.pop(),!v[x])
 					for(pair<int,T> o:G.V[x])
 						if(d[x]+o.Y<d[y=o.X])
 							d[y]=d[x]+o.Y,Q.push(MP(-d[y],y));
-    	}
-    	bool nega_ring(){
+		}
+		bool nega_ring(){
 			fr(i,n)d[i]=v[i]=0;
 			fr(i,n)if(dfs(i))return 1;
 			return 0;
