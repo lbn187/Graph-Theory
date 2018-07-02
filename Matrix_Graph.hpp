@@ -9,21 +9,19 @@
 #include "start.hpp"
 template<typename T> struct Matrix_Graph{
 	int n;
-	vector<vector<T> >a;
-	Matrix_Graph(){n=0;a.clear();}
+	T a[N][N];
+	Matrix_Graph(){n=0;}
 	Matrix_Graph(int _n,T z=0){
 		n=_n;
-		vector<T>tmp;a.PB(tmp);
-		fr(i,n+1)tmp.PB(z);
-		fr(i,n)a.PB(tmp);
+		fr(i,n)fr(j,n)a[i][j]=z;
 	}
 	Matrix_Graph(const Matrix_Graph<T>&G){
 		n=G.n;
-		fr(i,n)a[i]=G.a[i];
+		fr(i,n)fr(j,n)a[i][j]=G.a[i][j];
 	}
 	Matrix_Graph &operator=(const Matrix_Graph<T>&G){
 		if(this==&G)return *this;
-		fr(i,n)a[i].clear();
+		fr(i,n)fr(j,n)a[i][j]=G.a[i][j];
 	}
 	void ins(int x,int y,T z){a[x][y]=z;}
 };
