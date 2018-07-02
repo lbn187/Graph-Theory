@@ -1,3 +1,18 @@
+//function: a struct to solve bipartitle graph problem
+//n - The number of vertex in the left part
+//m - The number of vertex in the right part
+//k - The number of edges
+//lk[i] - The vertex match the right part vertex i
+//lkx[i] - The vertex match the left part vertex i
+//Bipartite_Graph(n,m) - Make a Bipartite_Graph struct with n vertexs in the left part and m vertexs in the right part
+//Bipartite_Graph(G,n,m) - Make a Bipartite_Graph struct with n vertexs in the left part and m vertexs in the right part and based on Graph G
+//ins(x,y) - Add an edge from left part vertex x to right part vertex y
+//Hungary(n) - Use Hungary algorithm to solve the maximum match of Bipartite_Graph, which time complexity is O(nm)
+//Hopcroft_Kart(n) - Use Hopcroft Kart algorithm to solve the maximum match of Bipartite_Graph, which time complexity is O(mn^(0.5)) 
+//print() - Print the maximum match scheme
+//pair<VI,VI> Minimum_Vertex_Coverage() - Return the minimum vertex coverage of the Bipartite_Graph
+//pair<VI,VI> Largest_Independent_Set() - Return the Largest independent set of the Bipartite_Graph
+//pair<VI,VI> Maximum_Clique() - Return the maximum clique of the Bipartite_Graph
 #include "Graph.hpp"
 struct Bipartite_Graph{
 	Graph G;int n,m,k,lky[N],lkx[N];
