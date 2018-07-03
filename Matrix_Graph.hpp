@@ -11,13 +11,11 @@ template<typename T> struct Matrix_Graph{
 	static const int N=1111;
 	int n;
 	T a[N][N];
-	Matrix_Graph(){n=0;}
-	Matrix_Graph(int _n,T z=0){
-		n=_n;
+	Matrix_Graph():n(0){}
+	Matrix_Graph(int _n,T z=0):n(_n){
 		fr(i,n)fr(j,n)a[i][j]=z;
 	}
-	Matrix_Graph(const Matrix_Graph<T>&G){
-		n=G.n;
+	Matrix_Graph(const Matrix_Graph<T>&G):n(G.n){
 		fr(i,n)fr(j,n)a[i][j]=G.a[i][j];
 	}
 	Matrix_Graph &operator=(const Matrix_Graph<T>&G){
