@@ -16,13 +16,11 @@ struct Graph{
 	static const int N=111111;
 	int n,m;
 	vector<int>V[N];
-	Graph(){n=0;m=0;}
-	Graph(int _n){
-		n=_n;m=0;
+	Graph():n(0),m(0){}
+	Graph(int _n):n(_n),m(0){
 		fr(i,n)V[i].clear();
 	}
-	Graph(const Graph &G){
-		n=G.n;m=G.m;
+	Graph(const Graph &G):n(G.n),m(G.m){
 		fr(i,n)V[i]=G.V[i];
 	}
 	~Graph(){clear();}
