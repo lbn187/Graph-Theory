@@ -9,6 +9,7 @@
 //Weight_Graph &operator=(const Weight_Graph<T>&G) - Assignment the weighted graph from G
 #include "start.hpp"
 template<typename T> struct Weight_Graph{
+	static const int N=111111;
 	int n,m;
 	vector<pair<int,T> >V[N];
 	Weight_Graph(){n=0;m=0;}
