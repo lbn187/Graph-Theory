@@ -14,6 +14,7 @@
 //void print() - Print the distance from the vertex S to each vertex
 #include "Weight_Graph.hpp"
 template<typename T> struct Shortest_Path{
+	static const int N=111111;
 	int S,n;
 	T d[N];
 	Weight_Graph<T>G;
