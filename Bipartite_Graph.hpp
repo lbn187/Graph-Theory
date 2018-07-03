@@ -15,6 +15,7 @@
 //pair<VI,VI> Maximum_Clique() - Return the maximum clique of the Bipartite_Graph
 #include "Graph.hpp"
 struct Bipartite_Graph{
+	static const int N=1000;
 	Graph G;int ln,rn,m,lky[N],lkx[N];
 	private:
 		int v[N],dx[N],dy[N];bool vl[N],vr[N];
