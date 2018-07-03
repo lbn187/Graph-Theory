@@ -8,6 +8,7 @@
 //Matrix_Graph &operator=(const Matrix_Graph<T>&G) - Assignment the matrix graph from G
 #include "start.hpp"
 template<typename T> struct Matrix_Graph{
+	static const int N=1111;
 	int n;
 	T a[N][N];
 	Matrix_Graph(){n=0;}
