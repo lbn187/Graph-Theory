@@ -1,5 +1,4 @@
 #include<bits/stdc++.h>
-#define N 11111
 #define PB push_back
 #define MP make_pair
 #define PII pair<int,int>
@@ -11,3 +10,4 @@
 #define rd(x) scanf("%d",&x)
 #define LL long long
 using namespace std;
+const int N=111111;
