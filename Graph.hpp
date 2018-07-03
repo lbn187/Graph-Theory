@@ -13,6 +13,7 @@
 //Graph Anti_Graph(Graph G) - Get the anti-graph of G
 #include "start.hpp"
 struct Graph{
+	static const int N=111111;
 	int n,m;
 	vector<int>V[N];
 	Graph(){n=0;m=0;}
