@@ -1,7 +1,7 @@
 //function: a struct to solve bipartitle graph problem
-//n - The number of vertex in the left part
-//m - The number of vertex in the right part
-//k - The number of edges
+//ln - The number of vertex in the left part
+//rn - The number of vertex in the right part
+//m - The number of edges
 //lk[i] - The vertex match the right part vertex i
 //lkx[i] - The vertex match the left part vertex i
 //Bipartite_Graph(n,m) - Make a Bipartite_Graph struct with n vertexs in the left part and m vertexs in the right part
@@ -15,12 +15,12 @@
 //pair<VI,VI> Maximum_Clique() - Return the maximum clique of the Bipartite_Graph
 #include "Graph.hpp"
 struct Bipartite_Graph{
-	Graph G;int n,m,k,lky[N],lkx[N];
+	Graph G;int ln,rn,m,lky[N],lkx[N];
 	private:
 		int v[N],dx[N],dy[N];bool vl[N],vr[N];
 		void start(){
-			fr(i,m)lky[i]=v[i]=0;
-			fr(i,n)lkx[i]=0;
+			fr(i,rn)lky[i]=v[i]=0;
+			fr(i,ln)lkx[i]=0;
 		}
 		bool Hungary_Find(int x,int z){
 			for(int y:G.V[x])if(v[y]!=z)
@@ -29,9 +29,9 @@ struct Bipartite_Graph{
 			return 0;
 		}
 		bool HKbfs(){
-			fr(i,n)dx[i]=0;fr(i,m)dy[i]=0;
-			queue<int>Q;int dis=n+m+1;
-			fr(i,n)if(!lkx[i])Q.push(i);
+			fr(i,ln)dx[i]=0;fr(i,m)dy[i]=0;
+			queue<int>Q;int dis=ln+rn+1;
+			fr(i,ln)if(!lkx[i])Q.push(i);
 			for(;!Q.empty();){
 				int x=Q.front();Q.pop();
 				if(dx[x]>dis)continue;
@@ -39,7 +39,7 @@ struct Bipartite_Graph{
 					if(dy[y]=dx[x]+1,lky[y])dx[lky[y]]=dy[y]+1,Q.push(lky[y]);
 					else dis=dy[y];
 			}
-			return dis<=n+m;
+			return dis<=ln+rn;
 		}
 		bool HKdfs(int x,int z){
 			for(int y:G.V[x])if(v[y]!=z&&dy[y]==dx[x]+1)
@@ -52,45 +52,45 @@ struct Bipartite_Graph{
 			for(int y:G.V[x])if(!vr[y]&&lky[y])vr[y]=1,Scheme_dfs(lky[y]);
 		}
 		void Scheme_Find(){
-			fr(i,n)vl[i]=0;fr(i,m)vr[i]=0;
-			fr(i,n)if(!lkx[i])Scheme_dfs(i);
+			fr(i,ln)vl[i]=0;fr(i,rn)vr[i]=0;
+			fr(i,ln)if(!lkx[i])Scheme_dfs(i);
 		}
 	public:
-		Bipartite_Graph(int _n,int _m){n=_n;m=_m;k=0;}
-		Bipartite_Graph(Graph _G,int _n,int _m){G=_G;n=_n;m=_m;k=G.m;}
-		void ins(int x,int y){G.ins(x,y);}
+		Bipartite_Graph(int _ln,int _rn):ln(_ln),rn(_rn),m(0){}
+		Bipartite_Graph(Graph _G,int _ln,int _rn):ln(_ln),rn(_rn){G=_G;m=G.m;}
+		void ins(int x,int y){G.ins(x,y);m++;}
 		int Hungary(){
 			int an=0;
 			start();
-			fr(i,n)if(Hungary_Find(i,i))an++;
+			fr(i,ln)if(Hungary_Find(i,i))an++;
 			return an;
 		}
 		int Hopcroft_Karp(){
 			int an=0,TM=0;
-			fr(i,n)lkx[i]=0;fr(i,m)lky[i]=0;
-			for(;an<min(n,m)&&HKbfs();)
-				fr(i,n)if(!lkx[i]&&HKdfs(i,++TM))an++;
+			fr(i,ln)lkx[i]=0;fr(i,rn)lky[i]=0;
+			for(;an<min(ln,rn)&&HKbfs();)
+				fr(i,ln)if(!lkx[i]&&HKdfs(i,++TM))an++;
 			return an;
 		}
 		void print(){
-			fr(i,m)if(lky[i])printf("%d - %d\n",lky[i],i);
+			fr(i,rn)if(lky[i])printf("%d - %d\n",lky[i],i);
 		}
 		pair<VI,VI> Minimum_Vertex_Coverage(){
 			Scheme_Find();
 			VI VL,VR;
-			fr(i,n)if(lkx[i]&&!vl[i])VL.PB(i);
-			fr(i,m)if(vr[i])VR.PB(i);
+			fr(i,ln)if(lkx[i]&&!vl[i])VL.PB(i);
+			fr(i,rn)if(vr[i])VR.PB(i);
 			return MP(VL,VR);
 		}
 		pair<VI,VI> Largest_Independent_Set(){
 			Scheme_Find();
 			VI VL,VR;
-			fr(i,n)if(!lkx[i]||vl[i])VL.PB(i);
-			fr(i,m)if(!vr[i])VR.PB(i);
+			fr(i,ln)if(!lkx[i]||vl[i])VL.PB(i);
+			fr(i,rn)if(!vr[i])VR.PB(i);
 			return MP(VL,VR);
 		}
 		pair<VI,VI> Maximum_Clique(){
-			Bipartite_Graph W(Anti_Graph(G),n,m);
+			Bipartite_Graph W(Anti_Graph(G),ln,rn);
 			return W.Largest_Independent_Set();
 		}
 		pair<VI,VI> Essential_Vertex(){//have not finished yet
