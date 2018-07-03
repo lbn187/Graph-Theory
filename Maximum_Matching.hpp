@@ -1,6 +1,14 @@
+//function - Using blossom tree to solve the maximum matching problem
+//n - The number of vertexs
+//m - The number of edges
+//mat[i] - The matching vertex of the vertex i
+//Maximum_Matching(n) - Make a Maximum_Matching struct has n vertexs
+//Maximum_Matching(G) - Make a Maximum_Matching struct based on G
+//solve() - Using blossom turee to solve the maximum matching problem, which time complixity is O(n^3)
+//print() - Print the scheme
 #include "Undirected_Graph.hpp"
 struct Maximum_Matching{
-	static const int N=1111;
+	static const int N=555;
 	Undirected_Graph G;
 	int n,m,mat[N];
 	private:
@@ -18,21 +26,22 @@ struct Maximum_Matching{
 				pre[u]=v,F[u]?0:F[u]=f,F[w=mat[u]]?0:F[w]=f,tp[w]^1?0:tp[q[++t]=w]=-1;
 		}
 		int bfs(int u){
-			int x,i;
+			int x,E,i;
 			fr(i,n)tp[i]=F[i]=0;
-			for(--tp[q[h=t=1]=u];h<=t;u=q[++h])
-				for(int y:G.V[u])if(!tp[y]){
-					if(!mat[y])return aug(y,u),1;
-					pre[y]=u,++tp[y],--tp[q[++t]=mat[y]];
-				}else if(tp[y]^1&&fd(u)^fd(y))blo(u,y,x=lca(u,y)),blo(y,u,x);
+			for(h=0,--tp[q[t=1]=u];h^t;)
+			for(int E:G.V[u=q[++h]])if(!tp[E]){
+				if(!mat[E])return aug(E,u),1;
+				pre[E]=u,++tp[E],--tp[q[++t]=mat[E]];
+			}else if (tp[E]^1&&fd(u)^fd(E))blo(u,E,x=lca(u,E)),blo(E,u,x);
 			return 0;
 		}
 	public:
-		Maximum_Matching():n(0),m(0){}
+		Maximum_Matching(int _n=0):n(_n),m(0){}
 		Maximum_Matching(Undirected_Graph _G):n(_G.n),m(_G.m){G=_G;}
 		void ins(int x,int y){G.ins(x,y);m++;}
 		int solve(){
 			int i,an=0;W=0;
+			fr(i,n)pre[i]=vs[i]=mat[i]=0; 
 			fr(i,n)mat[i]?0:an+=bfs(i);
 			return an;
 		}
