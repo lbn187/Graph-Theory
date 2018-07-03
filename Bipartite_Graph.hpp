@@ -93,4 +93,6 @@ struct Bipartite_Graph{
 			Bipartite_Graph W(Anti_Graph(G),n,m);
 			return W.Largest_Independent_Set();
 		}
+		pair<VI,VI> Essential_Vertex(){//have not finished yet
+		}
 };
