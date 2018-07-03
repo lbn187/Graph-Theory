@@ -15,6 +15,7 @@
 #include "Weight_Graph.hpp"
 template<typename T> struct Shortest_Path{
 	static const int N=111111;
+	static const T inf=1e9;
 	int S,n;
 	T d[N];
 	Weight_Graph<T>G;
@@ -31,13 +32,12 @@ template<typename T> struct Shortest_Path{
 			v[x]=0;
 		}
 	public:
-		Shortest_Path(int _n,int _S){
-			n=_n;S=_S;
+		Shortest_Path(int _n,int _S):n(_n),S(_S){
 			fr(i,n)d[i]=inf,v[i]=0;
 			d[S]=0;
 		}
-		Shortest_Path(Weight_Graph<T>_G,int _S){
-			G=_G;S=_S;n=G.n;
+		Shortest_Path(Weight_Graph<T>_G,int _S):S(_S){
+			G=_G;n=G.n;
 			fr(i,n)d[i]=inf,v[i]=0;
 			d[S]=0;
 		}
