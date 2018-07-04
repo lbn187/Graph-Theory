@@ -1,4 +1,5 @@
-//function - The Maxflow struct to solve maximum flow problem
+//function - The struct to solve maximum flow problem
+//Edge<T>{x,y,nxt,cap} - the template to store edges, which from x to y with flow z, which next edge is nxt
 //n - The number of vertex
 //m - The number of edges
 //Maxflow() - Initial opeartion
@@ -6,7 +7,7 @@
 //dinic(s,t) - Use dinic to solve the maximum flow, the start vertex is s and the terminate vertex is t, which time complixity is O(V^2E)
 #include "start.hpp"
 template<typename T> struct Edge{int x,y,nxt;T cap;};
-template<typename T> struct Maxflow{
+template<typename T> struct Maximum_Flow{
 	static const int N=111;
 	static const T inf=1e18;
 	int n,m;
@@ -34,7 +35,7 @@ template<typename T> struct Maxflow{
 			return 0;
 		}
 	public:
-		Maxflow(int _n):n(_n),m(0){edge.PB({0,0,0,0});edge.PB({0,0,0,0});}
+		Maximum_Flow(int _n):n(_n),m(0){edge.PB({0,0,0,0});edge.PB({0,0,0,0});}
 		void ins(int x,int y,T z){
 			int id=edge.size();
 			edge.PB({x,y,fir[x],z});fir[x]=id;
