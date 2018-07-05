@@ -2,8 +2,8 @@
 //ln - The number of vertex in the left part
 //rn - The number of vertex in the right part
 //m - The number of edges
-//lk[i] - The vertex match the right part vertex i
 //lkx[i] - The vertex match the left part vertex i
+//lky[i] - The vertex match the right part vertex i
 //Bipartite_Graph(n,m) - Make a Bipartite_Graph struct with n vertexs in the left part and m vertexs in the right part
 //Bipartite_Graph(G,n,m) - Make a Bipartite_Graph struct with n vertexs in the left part and m vertexs in the right part and based on Graph G
 //ins(x,y) - Add an edge from left part vertex x to right part vertex y
@@ -13,6 +13,7 @@
 //pair<VI,VI> Minimum_Vertex_Coverage() - Return the minimum vertex coverage of the Bipartite_Graph
 //pair<VI,VI> Largest_Independent_Set() - Return the Largest independent set of the Bipartite_Graph
 //pair<VI,VI> Maximum_Clique() - Return the maximum clique of the Bipartite_Graph
+//int Minimum_Path_Coverage(G) -Return the minimum path coverage of the graph G
 #include "Graph.hpp"
 struct Bipartite_Graph{
 	static const int N=1000;
@@ -97,3 +98,8 @@ struct Bipartite_Graph{
 		pair<VI,VI> Essential_Vertex(){//have not finished yet
 		}
 };
+int Minimum_Path_Coverage(Graph _G){
+	Bipartite_Graph G(_G.n,_G.n);
+	fr(x,_G.n)for(int y:_G.V[x])G.ins(x,y);
+	return _G.n-G.Hungary();
+}
