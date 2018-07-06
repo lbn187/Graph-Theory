@@ -14,9 +14,11 @@
 //pair<VI,VI> Largest_Independent_Set() - Return the Largest independent set of the Bipartite_Graph
 //pair<VI,VI> Maximum_Clique() - Return the maximum clique of the Bipartite_Graph
 //int Minimum_Path_Coverage(G) -Return the minimum path coverage of the graph G
+#ifndef BIPARTITE_GRAPH_HPP
+#define BIPARTITE_GRAPH_HPP
 #include "Graph.hpp"
 struct Bipartite_Graph{
-	static const int N=1000;
+	static const int N=1111;
 	Graph G;int ln,rn,m,lky[N],lkx[N];
 	private:
 		int v[N],dx[N],dy[N];bool vl[N],vr[N];
@@ -103,3 +105,4 @@ int Minimum_Path_Coverage(Graph _G){
 	fr(x,_G.n)for(int y:_G.V[x])G.ins(x,y);
 	return _G.n-G.Hungary();
 }
+#endif
