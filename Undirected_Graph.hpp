@@ -8,6 +8,8 @@
 //Undirected Graph &operator=(const Graph&G) - Assignment the graph from G 
 //void clear() - Clear all the edges
 //void ins(int x,int y) - Add a edge link vertex x and vertex y
+#ifndef UNDIRECTED_GRAPH_HPP
+#define UNDIRECTED_GRAPH_HPP
 #include "start.hpp"
 struct Undirected_Graph{
 	static const int N=111111;
@@ -30,3 +32,4 @@ struct Undirected_Graph{
 	void clear(){fr(i,n)V[i].clear();m=0;}
 	void ins(int x,int y){V[x].PB(y);V[y].PB(x);m++;}
 };
+#endif
