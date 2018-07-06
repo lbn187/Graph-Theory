@@ -12,3 +12,5 @@ The head file for all codes.
 ## Bipartite_Graph.hpp
 ## Weight_Bipartite_Graph.hpp
 ## Maximum_Matching.hpp
+# Maximum Flow struct
+## Maximum_Flow.hpp
