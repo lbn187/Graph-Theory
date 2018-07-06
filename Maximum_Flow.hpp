@@ -70,7 +70,7 @@ template<typename T> struct Maximum_Flow{
 			m++;
 		}
 		T dinic(int _s,int _t,int _n=0){
-			T an=0,d;s=_s;t=_t;if(!_n)n=_n;
+			T an=0,d;s=_s;t=_t;if(_n)n=_n;
 			for(;bfs();){
 				fr(i,n)cur[i]=fir[i];
 				for(;d=dfs(s,inf);)an+=d;
@@ -78,7 +78,7 @@ template<typename T> struct Maximum_Flow{
 			return an;
 		}
 		T ISAP(int _s,int _t,int _n=0){
-			T V,fl=0;int u,v,i;if(!_n)n=_n;
+			T V,fl=0;int u,v,i;if(_n)n=_n;
 			s=_s;t=_t;CL(nb);CL(pre);
 			bfs(t);
 			fr(i,n)nb[d[i]]++,cur[i]=fir[i],pre[i]=0;
