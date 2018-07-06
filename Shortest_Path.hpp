@@ -12,16 +12,18 @@
 //bool nega_ring() - Check whether the nega ring exists in the graph, which time complexity is O(m)
 //Weight_Graph<T> Shortest_Path_Topology() - Return all the edges in the shortest path, which make up a topology.
 //void print() - Print the distance from the vertex S to each vertex
+#ifndef SHORTEST_PATH_HPP
+#define SHORTEST_PATH_HPP
 #include "Weight_Graph.hpp"
 template<typename T> struct Shortest_Path{
 	static const int N=111111;
-	static const T inf=1e9;
+	static const T INF=1e9;
 	int S,n;
 	T d[N];
 	Weight_Graph<T>G;
 	private:
 		bool v[N];
-		void start(){fr(i,n)d[i]=inf,v[i]=0;d[S]=0;}
+		void start(){fr(i,n)d[i]=INF,v[i]=0;d[S]=0;}
 		void dfs(int x){
 			v[x]=1;int y;
 			for(pair<int,T> o:G.V[x])if(d[x]+o.Y<d[y=o.X]){
@@ -33,12 +35,12 @@ template<typename T> struct Shortest_Path{
 		}
 	public:
 		Shortest_Path(int _n,int _S):n(_n),S(_S){
-			fr(i,n)d[i]=inf,v[i]=0;
+			fr(i,n)d[i]=INF,v[i]=0;
 			d[S]=0;
 		}
 		Shortest_Path(Weight_Graph<T>_G,int _S):S(_S){
 			G=_G;n=G.n;
-			fr(i,n)d[i]=inf,v[i]=0;
+			fr(i,n)d[i]=INF,v[i]=0;
 			d[S]=0;
 		}
 		void ins(int x,int y,T z){G.ins(x,y,z);}
@@ -74,3 +76,4 @@ template<typename T> struct Shortest_Path{
 			fr(i,n)cout<<d[i]<<i==n?'\n':' '; 
 		}
 };
+#endif
