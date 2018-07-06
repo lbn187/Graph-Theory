@@ -7,6 +7,8 @@
 //Weight_Graph(n) - Make a weighted graph with no vertexs and no edges
 //Weight_Graph(G) - Mkae the weithted graph by copying the weighted graph G
 //Weight_Graph &operator=(const Weight_Graph<T>&G) - Assignment the weighted graph from G
+#ifndef WEIGHT_GRAPH_HPP
+#define WEIGHT_GRAPH_HPP
 #include "start.hpp"
 template<typename T> struct Weight_Graph{
 	static const int N=111111;
@@ -28,3 +30,4 @@ template<typename T> struct Weight_Graph{
 	}
 	void ins(int x,int y,T z){V[x].PB(MP(y,z));m++;}
 };
+#endif
