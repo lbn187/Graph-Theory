@@ -1,3 +1,5 @@
+#ifndef START_HPP
+#define START_HPP
 #include<bits/stdc++.h>
 #define PB push_back
 #define MP make_pair
@@ -11,3 +13,4 @@
 using namespace std;
 const int N=111111;
 const int inf=1e9;
+#endif
