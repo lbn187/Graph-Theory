@@ -6,6 +6,8 @@
 //Matrix_Graph(n,z) - Make a matrix graph with n vertexs, and the initial value is z
 //Matrix_Graph(G) - Make the matrix graph by copying the weighted graph G
 //Matrix_Graph &operator=(const Matrix_Graph<T>&G) - Assignment the matrix graph from G
+#ifndef MATRIX_GRAPH_HPP
+#define MATRIX_GRAPH_HPP
 #include "start.hpp"
 template<typename T> struct Matrix_Graph{
 	static const int N=1111;
@@ -24,3 +26,4 @@ template<typename T> struct Matrix_Graph{
 	}
 	void ins(int x,int y,T z){a[x][y]=z;}
 };
+#endif
