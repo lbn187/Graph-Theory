@@ -11,6 +11,8 @@
 //void BFS(Graph G, int S) - Get BFS order from vertex S
 //void Topological_Sorting(Graph G) - Make topological sorting
 //Graph Anti_Graph(Graph G) - Get the anti-graph of G
+#ifndef GRAPH_HPP
+#define GRAPH_HPP
 #include "start.hpp"
 struct Graph{
 	static const int N=111111;
@@ -89,3 +91,4 @@ Graph Anti_Graph(Graph G){
 	}
 	return _G;
 }
+#endif
