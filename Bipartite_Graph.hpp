@@ -33,7 +33,7 @@ struct Bipartite_Graph{
 			return 0;
 		}
 		bool HKbfs(){
-			fr(i,ln)dx[i]=0;fr(i,m)dy[i]=0;
+			fr(i,ln)dx[i]=0;fr(i,rn)dy[i]=0;
 			queue<int>Q;int dis=ln+rn+1;
 			fr(i,ln)if(!lkx[i])Q.push(i);
 			for(;!Q.empty();){
