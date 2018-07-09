@@ -14,7 +14,7 @@
 struct Undirected_Graph{
 	static const int N=111111;
 	int n,m;
-	vector<int>V[N];
+	VI V[N];
 	Undirected_Graph(int _n=0):n(_n),m(0){fr(i,n)V[i].clear();}
 	Undirected_Graph(const Undirected_Graph &G):n(G.n),m(G.m){fr(i,n)V[i]=G.V[i];}
 	~Undirected_Graph(){clear();}
