@@ -21,7 +21,7 @@ struct Bipartite_Graph{
 	static const int N=1111;
 	Graph G;int ln,rn,m,lky[N],lkx[N];
 	private:
-		int v[N],dx[N],dy[N];bool vl[N],vr[N];
+		int v[N],dl[N],dr[N];bool vl[N],vr[N];
 		void start(){
 			fr(i,rn)lky[i]=v[i]=0;
 			fr(i,ln)lkx[i]=0;
@@ -33,20 +33,20 @@ struct Bipartite_Graph{
 			return 0;
 		}
 		bool HKbfs(){
-			fr(i,ln)dx[i]=0;fr(i,rn)dy[i]=0;
-			queue<int>Q;int dis=ln+rn+1;
+			fr(i,ln)dl[i]=0;fr(i,rn)dr[i]=0;
+			queue<int>Q;int dis=ln+rn+2;
 			fr(i,ln)if(!lkx[i])Q.push(i);
 			for(;!Q.empty();){
 				int x=Q.front();Q.pop();
-				if(dx[x]>dis)continue;
-				for(int y:G.V[x])if(!dy[y])
-					if(dy[y]=dx[x]+1,lky[y])dx[lky[y]]=dy[y]+1,Q.push(lky[y]);
-					else dis=dy[y];
+				if(dl[x]>dis)continue;
+				for(int y:G.V[x])if(!dr[y])
+					if(dr[y]=dl[x]+1,lky[y])dl[lky[y]]=dr[y]+1,Q.push(lky[y]);
+					else dis=dr[y];
 			}
-			return dis<=ln+rn;
+			return dis<ln+rn+2;
 		}
 		bool HKdfs(int x,int z){
-			for(int y:G.V[x])if(v[y]!=z&&dy[y]==dx[x]+1)
+			for(int y:G.V[x])if(v[y]!=z&&dr[y]==dl[x]+1)
 				if(v[y]=z,!lky[y]||HKdfs(lky[y],z))
 					return lkx[x]=y,lky[y]=x,1;
 			return 0;
