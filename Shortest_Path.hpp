@@ -15,7 +15,68 @@
 #ifndef SHORTEST_PATH_HPP
 #define SHORTEST_PATH_HPP
 #include "Weight_Graph.hpp"
-template<typename T> struct Shortest_Path{
+template<typename T> struct Shortest_Path:public Weight_Graph<T>{
+	static const int N=111111;
+	static const T INF=1e9;
+	int s,n;
+	T d[N];
+	private:
+		bool v[N];
+		void start(){fr(i,n)d[i]=INF,v[i]=0;d[s]=0;}
+		void dfs(int x){
+			v[x]=1;int y;
+			for(pair<int,T> o:Weight_Graph<T>::V[x])if(d[x]+o.Y<d[y=o.X]){
+				d[y]=d[x]+o.Y;
+				if(v[y])return 1;
+				dfs(y);
+			}
+			v[x]=0;
+		}
+	public:
+		Shortest_Path(int _n,int _s):n(_n),s(_s){
+			fr(i,n)d[i]=INF,v[i]=0;
+			d[s]=0;
+		}
+		Shortest_Path(Weight_Graph<T>_G,int _s){
+			Weight_Graph<T>::operator=(_G);
+			s=_s;n=_G.n;
+			fr(i,n)d[i]=INF,v[i]=0;
+			d[s]=0;
+		}
+		void ins(int x,int y,T z){Weight_Graph<T>::ins(x,y,z);}
+		void SPFA(){
+			int x,y;queue<int>Q;Q.push(s);start();
+			for(d[s]=0;!Q.empty();v[x]=0,Q.pop())
+				for(pair<int,T> o:Weight_Graph<T>::V[x=Q.front()])
+					if(d[x]+o.Y<d[y=o.X])
+						if(d[y]=d[x]+o.Y,!v[y])
+							v[y]=1,Q.push(y); 
+		}
+		void Dijkstra(){
+			priority_queue<pair<T,int> >Q;int x,y;start();
+			for(Q.push(MP(0,s));!Q.empty();v[x]=1)
+				if(x=Q.top().Y,Q.pop(),!v[x])
+					for(pair<int,T> o:Weight_Graph<T>::V[x=Q.front()])
+						if(d[x]+o.Y<d[y=o.X])
+							d[y]=d[x]+o.Y,Q.push(MP(-d[y],y));
+		}
+		bool nega_ring(){
+			fr(i,n)d[i]=v[i]=0;
+			fr(i,n)if(dfs(i))return 1;
+			return 0;
+		}
+		Weight_Graph<T> Shortest_Path_Topology(){
+			Dijkstra();
+			Weight_Graph<T> W(n);
+			fr(x,n)for(pair<int,T> o:Weight_Graph<T>::V[x])
+				if(d[x]+o.Y==d[o.X])W.ins(x,o.X,o.Y);
+			return W;
+		}
+		void print(){
+			fr(i,n)cout<<d[i]<<i==n?'\n':' '; 
+		}
+};
+/*template<typename T> struct Shortest_Path{
 	static const int N=111111;
 	static const T INF=1e9;
 	int S,n;
@@ -75,5 +136,5 @@ template<typename T> struct Shortest_Path{
 		void print(){
 			fr(i,n)cout<<d[i]<<i==n?'\n':' '; 
 		}
-};
+};*/
 #endif
