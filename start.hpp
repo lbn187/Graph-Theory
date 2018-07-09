@@ -23,4 +23,4 @@
 const int N=111111;
 const int M=1000000007;
 const int inf=1e9;
-using namespaces std;
+using namespace std;
