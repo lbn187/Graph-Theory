@@ -17,14 +17,9 @@
 struct Graph{
 	static const int N=111111;
 	int n,m;
-	vector<int>V[N];
-	Graph():n(0),m(0){}
-	Graph(int _n):n(_n),m(0){
-		fr(i,n)V[i].clear();
-	}
-	Graph(const Graph &G):n(G.n),m(G.m){
-		fr(i,n)V[i]=G.V[i];
-	}
+	VI V[N];
+	Graph(int _n=0):n(_n),m(0){fr(i,n)V[i].clear();}
+	Graph(const Graph &G):n(G.n),m(G.m){fr(i,n)V[i]=G.V[i];}
 	~Graph(){clear();}
 	Graph &operator=(const Graph &G){
 		if(this==&G)return *this;
@@ -81,9 +76,7 @@ VI Topological_Sorting(Graph G){
 Graph Anti_Graph(Graph G){
 	bool *vs;
 	vs=new bool[G.n+1];
-	Graph _G;
-	_G.n=G.n;
-	_G.m=0;
+	Graph _G(G.n);
 	fr(i,G.n){
 		fr(j,G.n)vs[j]=0;vs[i]=1;
 		for(int x:G.V[i])vs[x]=1;
