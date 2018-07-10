@@ -29,9 +29,8 @@ template<typename T> struct Maximum_Flow{
 		bool vs[N];
 		int pre[N],nb[N];
 		bool bfs(){
-			queue<int>Q;CL(d);
-			d[s]=1;Q.push(s);
-			for(;!Q.empty();){
+			QI Q;CL(d);
+			for(d[s]=1,Q.push(s);!Q.empty();){
 				int x=Q.front();Q.pop();
 				for(int i=fir[x],y;i;i=e[i].nxt)
 					if(e[i].cap>0&&d[y=e[i].y]==0)
@@ -49,10 +48,8 @@ template<typename T> struct Maximum_Flow{
 			return 0;
 		}
 		void bfs(int t){
-			queue<int>Q;
-			fr(i,n)d[i]=n;
-			d[t]=0;Q.push(t);
-			for(;!Q.empty();){
+			QI Q;fr(i,n)d[i]=n;
+			for(d[t]=0,Q.push(t);!Q.empty();){
 				int x=Q.front();Q.pop();
 				for(int i=fir[x],y;i;i=e[i].nxt)
 					if(e[i^1].cap>0&&d[y=e[i].y]==n)
@@ -105,9 +102,8 @@ template<typename T> struct Maximum_Flow{
 		}
 		Graph Residual_Graph(){
 			Graph G(n);
-			fr(x,n)
-				for(int i=fir[x];i;i=e[i].nxt)
-					if(e[i].cap>0)G.ins(x,e[i].y);
+			fr(x,n)for(int i=fir[x];i;i=e[i].nxt)
+				if(e[i].cap>0)G.ins(x,e[i].y);
 			return G;
 		}
 		VI Minimal_cut_set(int st=0){
