@@ -29,28 +29,6 @@ struct Graph{
 	}
 	void clear(){fr(i,n)V[i].clear();m=0;}
 	void ins(int x,int y){V[x].PB(y);m++;}
-	/*
-	VI BFS(int S){
-		VI E;queue<int>Q;bool v[N];
-		fr(i,n)v[i]=0;
-		Q.push(S);v[S]=1;
-		for(;!Q.empty();){
-			int x=Q.front();E.PB(x);Q.pop();
-			for(int y:V[x])if(!v[y])v[y]=1,Q.push(y);
-		}
-		return E;
-	}
-	VI Topological_Sorting(){
-		int du[N];VI E;queue<int>Q; 
-		fr(i,n)du[i]=0;
-		fr(x,n)for(int y:V[x])du[y]++;
-		fr(i,n)if(!du[i])Q.push(i);
-		for(;!Q.empty();){
-			int x=Q.front();E.PB(x);Q.pop();
-			for(int y:V[x])if(!--du[y])Q.push(y);
-		}
-		return E;
-	}*/
 };
 VI BFS(Graph G,int S){
 	VI E;queue<int>Q;bool v[N];
