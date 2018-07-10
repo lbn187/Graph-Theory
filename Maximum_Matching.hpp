@@ -6,6 +6,8 @@
 //Maximum_Matching(G) - Make a Maximum_Matching struct based on G
 //solve() - Using blossom turee to solve the maximum matching problem, which time complixity is O(n^3)
 //print() - Print the scheme
+#ifndef MAXIMUM_MATCHING_HPP
+#define MAXIMUM_MATCHING_HPP
 #include "Undirected_Graph.hpp"
 struct Maximum_Matching:public Undirected_Graph{
 	static const int N=555;
@@ -35,7 +37,7 @@ struct Maximum_Matching:public Undirected_Graph{
 			return 0;
 		}
 	public:
-		Maximum_Matching(int _n=0):n(_n),m(0){}
+		Maximum_Matching(int _n=0):n(_n),m(0),Undirected_Graph(_n){}
 		Maximum_Matching(Undirected_Graph _G):n(_G.n),m(_G.m){Undirected_Graph::operator=(_G);}
 		void ins(int x,int y){Undirected_Graph::ins(x,y);m++;}
 		int solve(){
@@ -44,7 +46,6 @@ struct Maximum_Matching:public Undirected_Graph{
 			fr(i,n)mat[i]?0:an+=bfs(i);
 			return an;
 		}
-		void print(){
-			fr(i,n)printf("%d%c",mat[i],i==n?'\n':' ');	
-		}
+		void print(){fr(i,n)printf("%d%c",mat[i],i==n?'\n':' ');	}
 };
+#endif
