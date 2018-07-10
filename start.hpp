@@ -7,6 +7,8 @@
 #define PB push_back
 #define PII pair<int,int>
 #define VI vector<int>
+#define QI queue<int>
+#define PQ priority_queue
 #define X first
 #define Y second
 #define Max(a,b) a=max(a,b)
