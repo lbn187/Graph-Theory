@@ -15,6 +15,8 @@
 //ins(x,y) - Add an edge from left part vertex x to right part vertex y
 //KM() - Use KM algorithm to solve maximum value complete match problem problem
 //print() - Print the scheme
+#ifndef WEIGHT_BIPARTITE_GRAPH_HPP
+#define WEIGHT_BIPARTITE_GRAPH_HPP
 #include "Weight_Graph.hpp"
 template<typename T> struct Weight_Bipartite_Graph{
 	static const int N=555;
@@ -68,3 +70,4 @@ template<typename T> struct Weight_Bipartite_Graph{
 			fr(i,rn)if(lky[i])printf("%d - %d\n",lky[i],i);
 		}
 };
+#endif
