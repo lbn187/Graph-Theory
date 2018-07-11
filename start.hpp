@@ -1,3 +1,5 @@
+#ifndef START_HPP
+#define START_HPP
 #include<bits/stdc++.h>
 #define eps 1e-8
 #define pi 3.14159265358979
@@ -15,6 +17,7 @@
 #define Min(a,b) a=min(a,b)
 #define sqr(x) ((x)*(x))
 #define CL(a) memset(a,0,sizeof a)
+#define CP(a,b) memcpy(a,b,sizeof b)
 #define fr(i,n) for(int i=1;i<=n;i++)
 #define FR(i,S,n) for(int i=S;i<=n;i++)
 #define dr(i,n) for(int i=n;i;i--)
@@ -26,3 +29,4 @@ const int N=111111;
 const int M=1000000007;
 const int inf=1e9;
 using namespace std;
+#endif
