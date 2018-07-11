@@ -1,5 +1,5 @@
 //function - The struct to solve maximum flow problem
-//Edge<T>{x,y,nxt,cap} - The template to store edges, which from x to y with flow z, which next e is nxt
+//Edge<T>{x,y,nxt,cap} - The template to store edges, which from x to y with flow z, which next edge is nxt
 //udEdge<T>{x,y,mi,mx} - The template to store edges, which from x to y with minimum flow mi and maximum flow mx
 //n - The number of vertex
 //m - The number of edges
