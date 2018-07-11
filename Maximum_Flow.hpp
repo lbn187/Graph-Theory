@@ -5,7 +5,7 @@
 //m - The number of edges
 //s - The start vertex
 //t - The terminate vertex
-//Maxflow(n,s=0,t=0) - Initial opeartion
+//Maximum_Flow(n,s=0,t=0) - Initial opeartion
 //ins(x,y,z) - Add an edge from x to y with flow limit z
 //dinic(s,t,n=0) - Use dinic algorithm to solve the maximum flow, the start vertex is s and the terminate vertex is t, which time complixity is O(n^2m). What's more, you can change the number of vertex to n.
 //ISAP(s,t,n=0) -Use ISAP algorithm to solve the maximum flow, the start vertex is s and the terminate vertex is t, which time complixity is O(n^2m^(0.5)). What's more, you can change the number of vertex to n.
