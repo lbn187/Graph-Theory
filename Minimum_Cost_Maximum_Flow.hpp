@@ -14,28 +14,23 @@
 #include "start.hpp"
 template<typename T1,typename T2>struct CostEdge{int x,y,nxt;T1 cap;T2 co;};
 template<typename T1,typename T2>struct Minimum_Cost_Maximum_Flow{
-	static const int N=1111;
+	static const int N=555;
 	static const T1 INF1=2147483647;
 	static const T2 INF2=1e18;
 	int n,m,s,t,fir[N];
 	vector<CostEdge<T1,T2> >e;
 	private:
-		T1 fl;T2 an;
-		T2 d[N];
+		T1 fl;T2 an,d[N];
 		bool v[N];
-		int pre[N],fa[N];
+		int pre[N],fa[N],cur[N];
 		bool spfa(){
 			int x,y,i;QI Q;
 			fr(i,n)d[i]=INF2,v[i]=0;
 			d[s]=0;Q.push(s);v[s]=1;
-			for(;!Q.empty();){
-				x=Q.front();Q.pop();v[x]=0;
-				for(i=fir[x];i;i=e[i].nxt)
-					if(d[x]+e[i].co<d[y=e[i].y]&&e[i].cap>0){
-						d[y]=d[fa[y]=x]+e[pre[y]=i].co;
-						if(!v[y])v[y]=1,Q.push(y);
-					}
-			}
+			for(;!Q.empty();)
+				for(i=fir[x=Q.front()],Q.pop(),v[x]=0;i;i=e[i].nxt)
+					if(d[x]+e[i].co<d[y=e[i].y]&&e[i].cap>0)
+						if(d[y]=d[fa[y]=x]+e[pre[y]=i].co,!v[y])v[y]=1,Q.push(y);
 			return d[t]<INF2;
 		}
 		void end(){
@@ -46,20 +41,17 @@ template<typename T1,typename T2>struct Minimum_Cost_Maximum_Flow{
 		bool _spfa(){
 			int x,y,i;QI Q;
 			fr(i,n)d[i]=INF2,v[i]=0;
-			d[t]=0;Q.push(t);v[t]=1;
-			for(;!Q.empty();){
-				x=Q.front();Q.pop();v[x]=0;
-				for(i=fir[x];i;i=e[i].nxt)
+			for(d[t]=0,Q.push(t),v[t]=1;!Q.empty();)
+				for(i=fir[x=Q.front()],Q.pop(),v[x]=0;i;i=e[i].nxt)
 					if(d[x]+e[i^1].co<d[y=e[i].y]&&e[i^1].cap>0)
 						if(d[y]=d[x]+e[i^1].co,!v[y])v[y]=1,Q.push(y);
-			}
 			return d[s]<INF2;
 		}
 		T1 dfs(int x,T1 p){
 			if(x==t)return fl+=p,an+=d[s]*p,p;
 			if(v[x])return 0;
 			T1 tmp=0;v[x]=1;
-			for(int i=fir[x],y;i;i=e[i].nxt)
+			for(int &i=cur[x],y;i;i=e[i].nxt)
 				if(e[i].cap>0&&d[x]==e[i].co+d[y=e[i].y]){
 					T1 w=dfs(y,min(p-tmp,e[i].cap));
 					e[i].cap-=w;e[i^1].cap+=w;tmp+=w;
@@ -70,7 +62,7 @@ template<typename T1,typename T2>struct Minimum_Cost_Maximum_Flow{
 		T1 aug(int x,T1 p){
 			if(x==t)return fl+=p,an+=d[s]*p,p;
 			v[x]=1;T1 tmp=0,w;
-			for(int i=fir[x],y;i;i=e[i].nxt){
+			for(int &i=cur[x],y;i;i=e[i].nxt){
 				if(!v[y=e[i].y]&&e[i].cap>0&&d[x]==d[y]+e[i].co){
 					w=aug(y,min(e[i].cap,p-tmp));
 					e[i].cap-=w;e[i^1].cap+=w;tmp+=w;
@@ -101,13 +93,13 @@ template<typename T1,typename T2>struct Minimum_Cost_Maximum_Flow{
 		}
 		pair<T1,T2> dinic_cal(int _s,int _t,int _n=0){
 			s=_s;t=_t;if(_n)n=_n;
-			for(;_spfa();)for(;dfs(s,INF1););
+			for(;_spfa();)for(CP(cur,fir);dfs(s,INF1););
 			return MP(fl,an);
 		}
 		pair<T1,T2> ZKW(int _s,int _t,int _n=0){
 			s=_s;t=_t;if(_n)n=_n;
 			an=0;fl=0;CL(d);
-			do do CL(v);while(aug(s,INF1)>0);while(mdflabel());
+			do do CL(v),CP(cur,fir);while(aug(s,INF1)>0);while(mdflabel());
 			return MP(fl,an);
 		}
 };
