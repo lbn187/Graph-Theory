@@ -8,6 +8,8 @@ The head file for all codes.
 ## Weight_Graph.hpp
 # Tree struct
 ## Tree.hpp
+## Weight_Tree.hpp
+## Minimum_Spanning_Tree.hpp
 # Path struct
 ## Shortest_Path.hpp
 # Bipartite Graph struct
