@@ -11,6 +11,7 @@
 #define VI vector<int>
 #define QI queue<int>
 #define PQ priority_queue
+#define TI (*this)
 #define X first
 #define Y second
 #define Max(a,b) a=max(a,b)
