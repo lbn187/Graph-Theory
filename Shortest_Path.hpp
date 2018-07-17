@@ -25,7 +25,7 @@ template<typename T> struct Shortest_Path:public Weight_Graph<T>{
 		void start(){fr(i,n)d[i]=INF,v[i]=0;d[s]=0;}
 		void dfs(int x){
 			v[x]=1;int y;
-			for(auto o:Weight_Graph<T>::V[x])if(d[x]+o.Y<d[y=o.X]){
+			for(auto o:TI.V[x])if(d[x]+o.Y<d[y=o.X]){
 				d[y]=d[x]+o.Y;
 				if(v[y])return 1;
 				dfs(y);
@@ -35,17 +35,16 @@ template<typename T> struct Shortest_Path:public Weight_Graph<T>{
 	public:
 		Shortest_Path(int _n,int _s):n(_n),s(_s),Weight_Graph<T>(_n){}
 		Shortest_Path(Weight_Graph<T>_G,int _s):n(_G.n),s(_s){Weight_Graph<T>::operator=(_G);}
-		void ins(int x,int y,T z){Weight_Graph<T>::ins(x,y,z);}
 		void SPFA(){
 			int x,y;QI Q;Q.push(s);start();
 			for(d[s]=0;!Q.empty();v[x]=0,Q.pop())
-				for(auto o:Weight_Graph<T>::V[x=Q.front()])if(d[x]+o.Y<d[y=o.X])
+				for(auto o:TI.V[x=Q.front()])if(d[x]+o.Y<d[y=o.X])
 					if(d[y]=d[x]+o.Y,!v[y])v[y]=1,Q.push(y); 
 		}
 		void Dijkstra(){
 			PQ<pair<T,int> >Q;int x,y;start();
 			for(Q.push(MP(0,s));!Q.empty();v[x]=1)if(x=Q.top().Y,Q.pop(),!v[x])
-				for(auto o:Weight_Graph<T>::V[x=Q.front()])
+				for(auto o:TI.V[x=Q.front()])
 					if(d[x]+o.Y<d[y=o.X])d[y]=d[x]+o.Y,Q.push(MP(-d[y],y));
 		}
 		bool nega_ring(){
@@ -55,7 +54,7 @@ template<typename T> struct Shortest_Path:public Weight_Graph<T>{
 		}
 		Weight_Graph<T> Shortest_Path_Topology(){
 			Dijkstra();Weight_Graph<T> W(n);
-			fr(x,n)for(pair<int,T> o:Weight_Graph<T>::V[x])
+			fr(x,n)for(auto o:TI.V[x])
 				if(d[x]+o.Y==d[o.X])W.ins(x,o.X,o.Y);
 			return W;
 		}
