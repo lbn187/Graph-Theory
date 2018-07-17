@@ -19,7 +19,7 @@
 #include "Graph.hpp"
 struct Bipartite_Graph:public Graph{
 	static const int N=1111;
-	int ln,rn,m,lky[N],lkx[N];
+	int ln,rn,lky[N],lkx[N];
 	private:
 		int v[N],dl[N],dr[N];bool vl[N],vr[N];
 		void start(){
@@ -27,7 +27,7 @@ struct Bipartite_Graph:public Graph{
 			fr(i,ln)lkx[i]=0;
 		}
 		bool Hungary_Find(int x,int z){
-			for(int y:Graph::V[x])if(v[y]!=z)
+			for(int y:TI.V[x])if(v[y]!=z)
 				if(v[y]=z,!lky[y]||Hungary_Find(lky[y],z))
 					return lky[y]=x,lkx[x]=y,1;
 			return 0;
@@ -39,30 +39,29 @@ struct Bipartite_Graph:public Graph{
 			for(;!Q.empty();){
 				int x=Q.front();Q.pop();
 				if(dl[x]>dis)continue;
-				for(int y:Graph::V[x])if(!dr[y])
+				for(int y:TI.V[x])if(!dr[y])
 					if(dr[y]=dl[x]+1,lky[y])dl[lky[y]]=dr[y]+1,Q.push(lky[y]);
 					else dis=dr[y];
 			}
 			return dis<ln+rn+2;
 		}
 		bool HKdfs(int x,int z){
-			for(int y:Graph::V[x])if(v[y]!=z&&dr[y]==dl[x]+1)
+			for(int y:TI.V[x])if(v[y]!=z&&dr[y]==dl[x]+1)
 				if(v[y]=z,!lky[y]||HKdfs(lky[y],z))
 					return lkx[x]=y,lky[y]=x,1;
 			return 0;
 		}
 		void Scheme_dfs(int x){
 			vl[x]=1;
-			for(int y:Graph::V[x])if(!vr[y]&&lky[y])vr[y]=1,Scheme_dfs(lky[y]);
+			for(int y:TI.V[x])if(!vr[y]&&lky[y])vr[y]=1,Scheme_dfs(lky[y]);
 		}
 		void Scheme_Find(){
 			fr(i,ln)vl[i]=0;fr(i,rn)vr[i]=0;
 			fr(i,ln)if(!lkx[i])Scheme_dfs(i);
 		}
 	public:
-		Bipartite_Graph(int _ln,int _rn):ln(_ln),rn(_rn),m(0),Graph(_ln){}
-		Bipartite_Graph(Graph _G,int _ln,int _rn):ln(_ln),rn(_rn),m(_G.m){Graph::operator=(_G);}
-		void ins(int x,int y){Graph::ins(x,y);m++;}
+		Bipartite_Graph(int _ln,int _rn):ln(_ln),rn(_rn),Graph(_ln){}
+		Bipartite_Graph(Graph _G,int _ln,int _rn):ln(_ln),rn(_rn){Graph::operator=(_G);}
 		int Hungary(){
 			int an=0;start();
 			fr(i,ln)if(Hungary_Find(i,i))an++;
