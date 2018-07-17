@@ -14,12 +14,12 @@ struct Strongly_Connected_Components:public Graph{
 	int scc,id,bl[N];
 	private:
 		int t,dfn[N],low[N],q[N],mk[N];
-		VI V[N];bool is[N];
+		bool is[N];
 		vector<VI>R;VI U;
 		void tj(int x){
 			int i,y,o=0;
 			low[x]=dfn[x]=++id;is[x]=1;q[++t]=x;
-			for(int y:V[x])
+			for(int y:TI.V[x])
 				if(!dfn[y])tj(y),low[x]=min(low[x],low[y]);
 				else if(is[y])low[x]=min(low[x],dfn[y]);
 			if(dfn[x]==low[x]){
@@ -30,7 +30,7 @@ struct Strongly_Connected_Components:public Graph{
 		}
 		void dfs1(int x){
 			is[x]=1;U.PB(x);
-			for(int y:V[x])if(!is[y])dfs1(y);
+			for(int y:TI.V[x])if(!is[y])dfs1(y);
 		}
 		void dfs2(int x,int num,const Graph &G){
 			bl[x]=num;
@@ -39,12 +39,11 @@ struct Strongly_Connected_Components:public Graph{
 	public:
 		Strongly_Connected_Components(int _n):Graph(_n){}
 		Strongly_Connected_Components(Graph G){Graph::operator=(G);}
-		void ins(int x,int y){Graph::ins(x,y);}
 		void tarjan(){
 			CL(dfn);CL(low);CL(is);scc=t=id=0;
 			fr(i,n)if(!dfn[i])tj(i);
 		}
-		void Kosaraju(){
+		void Kosaraju(){//n^2/32 is on the way
 			CL(is);CL(bl);U.clear();
 			fr(i,n)if(!is[i])dfs1(i);
 			Graph _G=Transpose_Graph(*this);
@@ -53,7 +52,7 @@ struct Strongly_Connected_Components:public Graph{
 		vector<VI> components(){return R;}
 		Graph rebuild(){
 			Graph G;CL(mk);
-			fr(x,n)for(int y:V[x])
+			fr(x,n)for(int y:TI.V[x])
 				if(bl[x]!=bl[y]&&mk[bl[y]]!=x)mk[bl[y]]=x,G.ins(x,y);
 			return G;
 		}
