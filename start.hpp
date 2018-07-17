@@ -24,6 +24,7 @@
 #define dr(i,n) for(int i=n;i;i--)
 #define DR(i,n,S) for(int i=n;i>=S;i--)
 #define SZ(x) ((int)(x).size())
+#define ALL(x) (x).begin(),(x).end()
 #define rd(x) scanf("%d",&x)
 #define pr(x) printf("%d",x)
 const int N=111111;
