@@ -19,3 +19,7 @@ The head file for all codes.
 # Maximum Flow struct
 ## Maximum_Flow.hpp
 ## Minimum_Cost_Maximum_Flow.hpp
+# Tarjan struct
+## Strongly_Connected_Components.hpp
+## Biconnected_Component.hpp
+## Dominator_Tree.hpp
