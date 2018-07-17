@@ -16,6 +16,9 @@
 #define GRAPH_HPP
 #include "start.hpp"
 struct Graph{
+	friend VI BFS(Graph G,int S);
+	friend VI Topological_Sorting(Graph G);
+	friend Graph Anti_Graph(Graph G);
 	static const int N=111111;
 	int n,m;
 	VI V[N];
