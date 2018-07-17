@@ -11,7 +11,7 @@
 #include "Graph.hpp"
 struct Strongly_Connected_Components:public Graph{
 	static const int N=111111;
-	int n,scc,id,bl[N];
+	int scc,id,bl[N];
 	private:
 		int t,dfn[N],low[N],q[N],mk[N];
 		VI V[N];bool is[N];
@@ -37,8 +37,8 @@ struct Strongly_Connected_Components:public Graph{
 			for(int y:G.V[x])if(!bl[y])dfs2(y,num,G);
 		}
 	public:
-		Strongly_Connected_Components(int _n):n(_n),Graph(_n){}
-		Strongly_Connected_Components(Graph G):n(G.n){Graph::operator=(G);}
+		Strongly_Connected_Components(int _n):Graph(_n){}
+		Strongly_Connected_Components(Graph G){Graph::operator=(G);}
 		void ins(int x,int y){Graph::ins(x,y);}
 		void tarjan(){
 			CL(dfn);CL(low);CL(is);scc=t=id=0;
