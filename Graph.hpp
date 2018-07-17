@@ -11,6 +11,7 @@
 //void BFS(Graph G, int S) - Get BFS order from vertex S
 //void Topological_Sorting(Graph G) - Make topological sorting
 //Graph Anti_Graph(Graph G) - Get the anti-graph of G
+//Graph Transpose_Graph(Graph G) - Get the transpose graph of G
 #ifndef GRAPH_HPP
 #define GRAPH_HPP
 #include "start.hpp"
@@ -60,6 +61,11 @@ Graph Anti_Graph(Graph G){
 		for(int x:G.V[i])vs[x]=1;
 		fr(j,G.n)if(!vs[j])_G.ins(i,j);
 	}
+	return _G;
+}
+Graph Transpose_Graph(Graph G){
+	Graph _G(G.n);
+	fr(x,G.n)for(int y:G.V[x])_G.ins(y,x);
 	return _G;
 }
 #endif
