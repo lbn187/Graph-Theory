@@ -60,16 +60,16 @@ struct Bipartite_Graph:public Graph{
 			fr(i,ln)if(!lkx[i])Scheme_dfs(i);
 		}
 	public:
+		Bipartite_Graph()=default;
 		Bipartite_Graph(int _ln,int _rn):ln(_ln),rn(_rn),Graph(_ln){}
-		Bipartite_Graph(Graph _G,int _ln,int _rn):ln(_ln),rn(_rn){Graph::operator=(_G);}
+		Bipartite_Graph(Graph _G,int _ln,int _rn):ln(_ln),rn(_rn),Graph(_G){}
 		int Hungary(){
 			int an=0;start();
 			fr(i,ln)if(Hungary_Find(i,i))an++;
 			return an;
 		}
 		int Hopcroft_Karp(){
-			int an=0,TM=0;
-			fr(i,ln)lkx[i]=0;fr(i,rn)lky[i]=0;
+			int an=0,TM=0;start();
 			for(;an<min(ln,rn)&&HKbfs();)
 				fr(i,ln)if(!lkx[i]&&HKdfs(i,++TM))an++;
 			return an;
