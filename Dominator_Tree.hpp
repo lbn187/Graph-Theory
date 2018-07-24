@@ -16,7 +16,7 @@ struct Dominator_Tree:Graph{
 		VI dom[N],be[N];
 		void dfs(int x){
 			dfn[x]=++cnt;id[cnt]=x;
-			for(int y:TI.V[x]){
+			for(int y:V[x]){
 				if(!dfn[y])dfs(y),pa[dfn[y]]=dfn[x];
 				be[dfn[y]].PB(dfn[x]);
 			}
@@ -44,7 +44,7 @@ struct Dominator_Tree:Graph{
 	public:
 		Dominator_Tree()=default;
 		Dominator_Tree(int _n,int _s):Graph(_n),s(_s){}
-		Dominator_Tree(Graph G,int _s):s(_s){Graph::operator=(G);}
+		Dominator_Tree(Graph G,int _s):s(_s),Graph(G){}
 		void work(){
 			fr(i,n)dfn[i]=0,dom[i].clear(),be[i].clear(),p[i]=mn[i]=semi[i]=i;
 			cnt=0;dfs(s);LT();
