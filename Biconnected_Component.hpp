@@ -21,7 +21,7 @@ struct Biconnected_Component:public Undirected_Graph{
 		void dfs(int x,int fa){
 			dfn[x]=low[x]=++id;
 			int cd=0,o=0,ff=0;
-			for(int y:TI.V[x])if(!dfn[y]){
+			for(int y:V[x])if(!dfn[y]){
 				dfs(y,x);cd++;
 				if(fa&&dfn[x]<=low[y]&&!ff)GD.PB(x),ff=1;
 				if(low[y]>dfn[x])GB.PB(MP(min(x,y),max(x,y)));//if has multi edges, you should check it specially
@@ -37,8 +37,9 @@ struct Biconnected_Component:public Undirected_Graph{
 			}else if(y!=fa)low[x]=min(low[x],dfn[y]);
 		}
 	public:
+		Biconnected_Component()=default;
 		Biconnected_Component(int _n):Undirected_Graph(_n){}
-		Biconnected_Component(Undirected_Graph G){Undirected_Graph::operator=(G);}
+		Biconnected_Component(Undirected_Graph G):Undirected_Graph(G){}
 		void clear(){
 			Undirected_Graph::clear();
 			CL(low);CL(dfn);
