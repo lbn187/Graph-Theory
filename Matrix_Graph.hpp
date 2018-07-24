@@ -13,7 +13,7 @@ template<typename T> struct Matrix_Graph{
 	static const int N=1111;
 	int n;
 	T a[N][N];
-	Matrix_Graph():n(0){}
+	Matrix_Graph()=default;
 	Matrix_Graph(int _n,T z=0):n(_n){
 		fr(i,n)fr(j,n)a[i][j]=z;
 	}
@@ -23,6 +23,10 @@ template<typename T> struct Matrix_Graph{
 	Matrix_Graph &operator=(const Matrix_Graph<T>&G){
 		if(this==&G)return *this;
 		fr(i,n)fr(j,n)a[i][j]=G.a[i][j];
+		return *this;
+	}
+	void clear(){
+		fr(i,n)fr(j,n)a[i][j]=0;
 	}
 	void ins(int x,int y,T z){a[x][y]=z;}
 };
