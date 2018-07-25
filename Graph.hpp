@@ -24,13 +24,20 @@ struct Graph{
 	VI V[N];
 	Graph(int _n=0):n(_n),m(0){fr(i,n)V[i].clear();}
 	Graph(const Graph &G):n(G.n),m(G.m){fr(i,n)V[i]=G.V[i];}
-	~Graph(){clear();}
 	Graph &operator=(const Graph &G){
 		if(this==&G)return *this;
 		fr(i,n)V[i].clear();
 		n=G.n;m=G.m;
 		fr(i,n)V[i]=G.V[i];
 	}
+	Graph(Graph &&G)noexcept:n(G.n),m(G.m){fr(i,n)V[i].swap(G.V[i]);}
+	Graph &operator=(Graph &&G)noexcept{
+		if(this==&G)return *this;
+		n=G.n;m=G.m;
+		fr(i,n)V[i].swap(G.V[i]);
+		return *this;
+	}
+	~Graph(){clear();}
 	void clear(){fr(i,n)V[i].clear();m=0;}
 	void ins(int x,int y){V[x].PB(y);m++;}
 };
