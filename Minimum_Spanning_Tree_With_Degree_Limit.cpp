@@ -10,7 +10,7 @@ struct Edge{
 VI V;
 int gf(int x){return fa[x]==x?x:fa[x]=gf(fa[x]);}
 void add(int x,int y,int z){p[++o]=y;c[o]=z;t[o]=f[x];f[x]=o;}
-void dfs(int x,int F){
+void dfs(int x,int F){//DP
 	fa[x]=F;
 	if(F==S)Best[x]=-1;else{
 		Best[x]=x;
@@ -33,7 +33,6 @@ bool Kruskal(){
 			fa[gf(E[i].x)]=gf(E[i].y);
 			ans+=E[i].z;
 			cnt--;
-			u[i]=1;
 			add(E[i].x,E[i].y,E[i].z);
 			add(E[i].y,E[i].x,E[i].z);
 		}
@@ -48,31 +47,31 @@ bool Kruskal(){
 		if(MinCost[i].Y==INF)return 0;
 		if(++dif>K)return 0;
 		dfs(E[MinCost[i].Y].y,S);
-		u[MinCost[i].Y]=1;
+		u[E[MinCost[i].Y].y]=1;
 		ans+=MinCost[i].X;
 	}
 	return 1;
 }
-bool Solve(){//If it's ok, ans store the answer
+bool Solve(){//If return true, the spanning tree exists and the answer store in ans
 	CL(d);CL(u);VI W;
 	fr(i,m)if(E[i].x==S||E[i].y==S)W.PB(E[i].x+E[i].y-S);
 	sort(W.begin(),W.end());
 	W.erase(unique(W.begin(),W.end()),W.end());
-	if(W.size()<K)return 0;
+	if(W.size()<K)return 0;//special judge 
 	if(!Kruskal())return 0;
 	for(int i=cnt+1;i<=K&&i<=n;i++){
 		int MinD=INF,MinID=-1;
-		for(int j=V.size()-1;j>=0;j--)if(u[V[j]])V.erase(V.begin()+j);
+		for(int j=V.size()-1;j>=0;j--)if(u[E[V[j]].y])V.erase(V.begin()+j);
 		for(auto y:V){
 			int tmp=E[y].z-Cost[Best[E[y].y]];
-			if(tmp<MinD)MinD=tmp,MinID=y;
+			if(tmp<MinD)MinD=tmp,MinID=E[y].y;
 		}
 		if(MinID==-1)return 1;
-		if(MinD>=0)break;
+		//if MinD<0, and the problem ask the limit don't exceed K, we should break
 		ans+=MinD;
 		u[MinID]=1;
-		d[FE[Best[E[MinID].y]]]=d[FE[Best[E[MinID].y]]^1]=1;
-		dfs(E[MinID].y,S);
+		d[FE[Best[MinID]]]=d[FE[Best[MinID]]^1]=1;
+		dfs(MinID,S);
 	}
 	return 1;
 }
