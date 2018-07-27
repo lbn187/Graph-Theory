@@ -23,7 +23,7 @@ template<typename T> struct Shortest_Path:public Weight_Graph<T>{
 	T d[N];
 	private:
 		bool v[N];
-		void start(){fr(i,n)d[i]=INF,v[i]=0;d[s]=0;}
+		void start(int s){fr(i,n)d[i]=INF,v[i]=0;d[s]=0;}
 		void dfs(int x){
 			v[x]=1;int y;
 			for(auto o:V[x])if(d[x]+o.Y<d[y=o.X]){
@@ -38,7 +38,7 @@ template<typename T> struct Shortest_Path:public Weight_Graph<T>{
 		Shortest_Path(int _n):Weight_Graph<T>(_n){}
 		Shortest_Path(Weight_Graph<T>_G):Weight_Graph<T>(_G){}
 		void SPFA(int s){
-			int x,y;QI Q;Q.push(s);start();
+			int x,y;QI Q;Q.push(s);start(s);
 			for(d[s]=0;!Q.empty();v[x]=0,Q.pop())
 				for(auto o:V[x=Q.front()])
 					if(d[x]+o.Y<d[y=o.X])
@@ -46,7 +46,7 @@ template<typename T> struct Shortest_Path:public Weight_Graph<T>{
 							v[y]=1,Q.push(y); 
 		}
 		void Dijkstra(int s){
-			PQ<pair<T,int> >Q;int x,y;start();
+			PQ<pair<T,int> >Q;int x,y;start(s);
 			for(Q.push(MP(0,s));!Q.empty();v[x]=1)
 				if(x=Q.top().Y,Q.pop(),!v[x])
 					for(auto o:V[x=Q.front()])
