@@ -11,7 +11,7 @@
 #include "Undirected_Graph.hpp"
 struct Maximum_Matching:public Undirected_Graph{
 	static const int N=555;
-	int n,mat[N];
+	int mat[N];
 	private:
 		int W,h,t,F[N],pre[N],tp[N],q[N],vs[N];
 		int fd(int x){return F[x]?F[x]=fd(F[x]):x;}
@@ -30,15 +30,16 @@ struct Maximum_Matching:public Undirected_Graph{
 			int x,E,i;
 			fr(i,n)tp[i]=F[i]=0;
 			for(h=0,--tp[q[t=1]=u];h^t;)
-			for(int E:TI.V[u=q[++h]])if(!tp[E]){
+			for(int E:V[u=q[++h]])if(!tp[E]){
 				if(!mat[E])return aug(E,u),1;
 				pre[E]=u,++tp[E],--tp[q[++t]=mat[E]];
 			}else if (tp[E]^1&&fd(u)^fd(E))blo(u,E,x=lca(u,E)),blo(E,u,x);
 			return 0;
 		}
 	public:
-		Maximum_Matching(int _n=0):n(_n),Undirected_Graph(_n){}
-		Maximum_Matching(Undirected_Graph _G):n(_G.n){Undirected_Graph::operator=(_G);}
+		Maximum_Matching()=default;
+		Maximum_Matching(int _n=0):Undirected_Graph(_n){}
+		Maximum_Matching(Undirected_Graph _G):Undirected_Graph(_G){}
 		int solve(){
 			int i,an=0;W=0;
 			fr(i,n)pre[i]=vs[i]=mat[i]=0; 
