@@ -16,16 +16,17 @@
 #define SHORTEST_PATH_HPP
 #include "Weight_Graph.hpp"
 template<typename T> struct Shortest_Path:public Weight_Graph<T>{
-	static const int N=111111;
+	using Weight_Graph<T>::N;
+	using Weight_Graph<T>::n;
+	using Weight_Graph<T>::V;
 	static const T INF=1e9;
-	int s,n;
 	T d[N];
 	private:
 		bool v[N];
 		void start(){fr(i,n)d[i]=INF,v[i]=0;d[s]=0;}
 		void dfs(int x){
 			v[x]=1;int y;
-			for(auto o:TI.V[x])if(d[x]+o.Y<d[y=o.X]){
+			for(auto o:V[x])if(d[x]+o.Y<d[y=o.X]){
 				d[y]=d[x]+o.Y;
 				if(v[y])return 1;
 				dfs(y);
@@ -34,28 +35,32 @@ template<typename T> struct Shortest_Path:public Weight_Graph<T>{
 		}
 	public:
 		Shortest_Path()=default;
-		Shortest_Path(int _n,int _s):n(_n),Weight_Graph<T>(_n){}
-		Shortest_Path(Weight_Graph<T>_G):n(_G.n),Weight_Graph<T>(_G){}
-		void SPFA(int _s){
-			int x,y;QI Q;Q.push(s=_s);start();
+		Shortest_Path(int _n):Weight_Graph<T>(_n){}
+		Shortest_Path(Weight_Graph<T>_G):Weight_Graph<T>(_G){}
+		void SPFA(int s){
+			int x,y;QI Q;Q.push(s);start();
 			for(d[s]=0;!Q.empty();v[x]=0,Q.pop())
-				for(auto o:TI.V[x=Q.front()])if(d[x]+o.Y<d[y=o.X])
-					if(d[y]=d[x]+o.Y,!v[y])v[y]=1,Q.push(y); 
+				for(auto o:V[x=Q.front()])
+					if(d[x]+o.Y<d[y=o.X])
+						if(d[y]=d[x]+o.Y,!v[y])
+							v[y]=1,Q.push(y); 
 		}
-		void Dijkstra(int _s){
-			PQ<pair<T,int> >Q;int x,y;s=_s;start();
-			for(Q.push(MP(0,s));!Q.empty();v[x]=1)if(x=Q.top().Y,Q.pop(),!v[x])
-				for(auto o:TI.V[x=Q.front()])
-					if(d[x]+o.Y<d[y=o.X])d[y]=d[x]+o.Y,Q.push(MP(-d[y],y));
+		void Dijkstra(int s){
+			PQ<pair<T,int> >Q;int x,y;start();
+			for(Q.push(MP(0,s));!Q.empty();v[x]=1)
+				if(x=Q.top().Y,Q.pop(),!v[x])
+					for(auto o:V[x=Q.front()])
+						if(d[x]+o.Y<d[y=o.X])
+							d[y]=d[x]+o.Y,Q.push(MP(-d[y],y));
 		}
 		bool nega_ring(){
 			fr(i,n)d[i]=v[i]=0;
 			fr(i,n)if(dfs(i))return 1;
 			return 0;
 		}
-		Weight_Graph<T> Shortest_Path_Topology(int _s){
-			Dijkstra(_s);Weight_Graph<T> W(n);
-			fr(x,n)for(auto o:TI.V[x])
+		Weight_Graph<T> Shortest_Path_Topology(){
+			Dijkstra();Weight_Graph<T> W(n);
+			fr(x,n)for(auto o:V[x])
 				if(d[x]+o.Y==d[o.X])W.ins(x,o.X,o.Y);
 			return W;
 		}
