@@ -19,6 +19,7 @@ template<typename T> struct Shortest_Path:public Weight_Graph<T>{
 	using Weight_Graph<T>::N;
 	using Weight_Graph<T>::n;
 	using Weight_Graph<T>::V;
+	using Weight_Graph<T>::Weight_Graph;
 	static const T INF=1e9;
 	T d[N];
 	private:
@@ -34,9 +35,11 @@ template<typename T> struct Shortest_Path:public Weight_Graph<T>{
 			v[x]=0;
 		}
 	public:
-		Shortest_Path()=default;
-		Shortest_Path(int _n):Weight_Graph<T>(_n){}
-		Shortest_Path(Weight_Graph<T>_G):Weight_Graph<T>(_G){}
+		Shortest_Path(const Shortest_Path&G):Weight_Graph<T>(G){fr(i,n)d[i]=G.d[i];}
+		Shortest_Path &operator=(const Shortest_Path<T>&G){
+			Weight_Graph<T>::operator()=G;
+			fr(i,n)d[i]=G.d[i];
+		}
 		void SPFA(int s){
 			int x,y;QI Q;Q.push(s);start(s);
 			for(d[s]=0;!Q.empty();v[x]=0,Q.pop())
