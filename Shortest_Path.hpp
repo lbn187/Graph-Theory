@@ -15,12 +15,10 @@
 #ifndef SHORTEST_PATH_HPP
 #define SHORTEST_PATH_HPP
 #include "Weight_Graph.hpp"
-template<typename T> struct Shortest_Path:public Weight_Graph<T>{
-	using Weight_Graph<T>::N;
-	using Weight_Graph<T>::n;
-	using Weight_Graph<T>::V;
-	using Weight_Graph<T>::Weight_Graph;
-	static const T INF=1e9;
+template<typename T,const int N,const T INF> struct Shortest_Path:public Weight_Graph<T,N>{
+	using Weight_Graph<T,N>::n;
+	using Weight_Graph<T,N>::V;
+	using Weight_Graph<T,N>::Weight_Graph;
 	T d[N];
 	private:
 		bool v[N];
@@ -35,9 +33,10 @@ template<typename T> struct Shortest_Path:public Weight_Graph<T>{
 			v[x]=0;
 		}
 	public:
-		Shortest_Path(const Shortest_Path&G):Weight_Graph<T>(G){fr(i,n)d[i]=G.d[i];}
-		Shortest_Path &operator=(const Shortest_Path<T>&G){
-			Weight_Graph<T>::operator()=G;
+		Shortest_Path()=default;
+		Shortest_Path(const Shortest_Path&G):Weight_Graph<T,N>(G){fr(i,n)d[i]=G.d[i];}
+		Shortest_Path &operator=(const Shortest_Path&G){
+			Weight_Graph<T,N>::operator()=G;
 			fr(i,n)d[i]=G.d[i];
 		}
 		void SPFA(int s){
@@ -61,8 +60,8 @@ template<typename T> struct Shortest_Path:public Weight_Graph<T>{
 			fr(i,n)if(dfs(i))return 1;
 			return 0;
 		}
-		Weight_Graph<T> Shortest_Path_Topology(){
-			Dijkstra();Weight_Graph<T> W(n);
+		Weight_Graph<T,N> Shortest_Path_Topology(){
+			Dijkstra();Weight_Graph<T,N> W(n);
 			fr(x,n)for(auto o:V[x])
 				if(d[x]+o.Y==d[o.X])W.ins(x,o.X,o.Y);
 			return W;
