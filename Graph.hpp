@@ -24,6 +24,7 @@ struct Graph{
 	static const int N=111111;
 	int n,m;
 	VI V[N];
+	Graph()=default;
 	Graph(int _n=0):n(_n),m(0){fr(i,n)V[i].clear();}
 	Graph(const Graph &G):n(G.n),m(G.m){fr(i,n)V[i]=G.V[i];}
 	Graph &operator=(const Graph &G){
@@ -31,6 +32,7 @@ struct Graph{
 		fr(i,n)V[i].clear();
 		n=G.n;m=G.m;
 		fr(i,n)V[i]=G.V[i];
+		return *this;
 	}
 	Graph(Graph &&G)noexcept:n(G.n),m(G.m){fr(i,n)V[i].swap(G.V[i]);}
 	Graph &operator=(Graph &&G)noexcept{
