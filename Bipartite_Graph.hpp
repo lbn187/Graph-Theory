@@ -27,7 +27,7 @@ struct Bipartite_Graph:public Graph{
 			fr(i,ln)lkx[i]=0;
 		}
 		bool Hungary_Find(int x,int z){
-			for(int y:TI.V[x])if(v[y]!=z)
+			for(int y:V[x])if(v[y]!=z)
 				if(v[y]=z,!lky[y]||Hungary_Find(lky[y],z))
 					return lky[y]=x,lkx[x]=y,1;
 			return 0;
@@ -46,14 +46,14 @@ struct Bipartite_Graph:public Graph{
 			return dis<ln+rn+2;
 		}
 		bool HKdfs(int x,int z){
-			for(int y:TI.V[x])if(v[y]!=z&&dr[y]==dl[x]+1)
+			for(int y:V[x])if(v[y]!=z&&dr[y]==dl[x]+1)
 				if(v[y]=z,!lky[y]||HKdfs(lky[y],z))
 					return lkx[x]=y,lky[y]=x,1;
 			return 0;
 		}
 		void Scheme_dfs(int x){
 			vl[x]=1;
-			for(int y:TI.V[x])if(!vr[y]&&lky[y])vr[y]=1,Scheme_dfs(lky[y]);
+			for(int y:V[x])if(!vr[y]&&lky[y])vr[y]=1,Scheme_dfs(lky[y]);
 		}
 		void Scheme_Find(){
 			fr(i,ln)vl[i]=0;fr(i,rn)vr[i]=0;
