@@ -11,7 +11,13 @@
 #define WEIGHT_GRAPH_HPP
 #include "start.hpp"
 #include "Graph.hpp"
-template<typename T=LL,const int N=111111>struct Weight_Graph{
+template<typename,const int> struct Weight_Graph;
+template<typename T=LL,const int N=111111> ostream &operator<<(ostream &,const Weight_Graph<T,N> &);
+template<typename T=LL,const int N=111111> istream &operator>>(istream &,Weight_Graph<T,N> &);
+template<typename T=LL,const int N=111111> struct Weight_Graph{
+	friend struct Graph;
+	friend ostream &operator<< <T,N>(ostream &,const Weight_Graph<T,N> &);
+	friend istream &operator>> <T,N>(istream &,Weight_Graph<T,N> &);
 	int n,m;
 	vector<pair<int,T> >V[N];
 	Weight_Graph()=default;
@@ -23,6 +29,7 @@ template<typename T=LL,const int N=111111>struct Weight_Graph{
 		fr(i,n)V[i].clear();
 		n=G.n;m=G.m;
 		fr(i,n)V[i]=G.V[i];
+		return *this;
 	}
 	Weight_Graph(Weight_Graph &&G)noexcept:n(G.n),m(G.m){fr(i,n)V[i].swap(G.V[i]);}
 	Weight_Graph &operator=(Weight_Graph &&G)noexcept{
@@ -32,9 +39,13 @@ template<typename T=LL,const int N=111111>struct Weight_Graph{
 	}
 	void clear(){fr(i,n)V[i].clear();m=0;}
 	void ins(int x,int y,T z){V[x].PB(MP(y,z));m++;}
-	Graph To_Graph();
+	Graph To_Graph(){
+		Graph G(n);
+		fr(x,n)for(auto o:V[x])G.ins(x,o.X);
+		return G;
+	}
 };
-template<typename T,const int N>
+template<typename T=LL,const int N=111111>
 ostream &operator<<(ostream &os,const Weight_Graph<T,N> &G){
 	os<<"N = "<<G.n<<" , "<<"M = "<<G.m<<endl;
 	fr(x,G.n)for(auto o:G.V[x])os<<x<<" -> "<<o.X<<" ["<<o.Y<<"]"<<endl;
