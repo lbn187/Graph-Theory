@@ -8,8 +8,7 @@
 #define DOMINATOR_TREE_HPP
 #include "Graph.hpp"
 #include "Tree.hpp"
-struct Dominator_Tree:Graph{
-	static const int N=444444;
+struct Dominator_Tree:public Graph{
 	int s,dfn[N],id[N],idom[N];
 	private:
 		int cnt,pa[N],semi[N],p[N],mn[N];
@@ -45,6 +44,17 @@ struct Dominator_Tree:Graph{
 		Dominator_Tree()=default;
 		Dominator_Tree(int _n,int _s):Graph(_n),s(_s){}
 		Dominator_Tree(Graph G,int _s):s(_s),Graph(G){}
+		Dominator_Tree(const Dominator_Tree&G):s(G.s),Graph(G){}
+		Dominator_Tree& operator=(const Dominator_Tree &G){
+			Graph::operator=(G);
+			s=G.s;
+			return *this;
+		} 
+		~Dominator_Tree(){clear();}
+		void clear(){
+			Graph::clear();
+			fr(i,n)dom[i].clear(),be[i].clear();
+		}
 		void work(){
 			fr(i,n)dfn[i]=0,dom[i].clear(),be[i].clear(),p[i]=mn[i]=semi[i]=i;
 			cnt=0;dfs(s);LT();
