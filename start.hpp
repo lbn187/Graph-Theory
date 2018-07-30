@@ -1,15 +1,9 @@
 #ifndef START_HPP
 #define START_HPP
 #include<bits/stdc++.h>
-#define eps 1e-8
-#define pi 3.14159265358979
-#define LL long long
 #define MP make_pair
 #define PH push
 #define PB push_back
-#define PII pair<int,int>
-#define VI vector<int>
-#define QI queue<int>
 #define PQ priority_queue
 #define TI (*this)
 #define X first
@@ -27,8 +21,17 @@
 #define ALL(x) (x).begin(),(x).end()
 #define rd(x) scanf("%d",&x)
 #define pr(x) printf("%d",x)
+using namespace std;
+typedef double D;
+typedef unsigned int UI;
+typedef long long LL;
+typedef unsigned long long ULL;
+typedef pair<int,int> PII;
+typedef vector<int> VI;
+typedef queue<int> QI;
 const int N=111111;
 const int M=1000000007;
-const int inf=1e9;
-using namespace std;
+const int INF=1e9;
+const D eps=1e-8;
+const D pi=acos(-1);
 #endif
