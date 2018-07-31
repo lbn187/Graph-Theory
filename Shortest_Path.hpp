@@ -32,8 +32,27 @@ template<typename T=LL,size_t N=111111,T INF=1000000000> struct Shortest_Path:pu
 			}
 			v[x]=0;
 		}
+		void spfa(){
+			QI Q;int x,y;
+			fr(i,n)if(d[i]!=INF)Q.push(i),v[i]=1;
+			for(;!Q.empty();v[x]=0,Q.pop())
+				for(auto o:V[x=Q.front()])
+					if(d[x]+o.Y<d[y=o.X])
+						if(d[y]=d[x]+o.Y,!v[y])
+							v[y]=1,Q.push(y); 
+		}
+		void dijkstra(){
+			PQ<pair<T,int> >Q;int x,y;
+			fr(i,n)if(d[i]!=INF)Q.push(MP(-d[i],i));
+			for(;!Q.empty();v[x]=1)
+				if(x=Q.top().Y,Q.pop(),!v[x])
+					for(auto o:V[x])
+						if(d[x]+o.Y<d[y=o.X])
+							d[y]=d[x]+o.Y,Q.push(MP(-d[y],y));
+		}
 	public:
 		Shortest_Path()=default;
+		Shortest_Path(const Weight_Graph<T,N>&G):Weight_Graph<T,N>(G){}
 		Shortest_Path(const Shortest_Path&G):Weight_Graph<T,N>(G){fr(i,n)d[i]=G.d[i];}
 		Shortest_Path &operator=(const Shortest_Path&G){
 			Weight_Graph<T,N>::operator()=G;
@@ -42,20 +61,20 @@ template<typename T=LL,size_t N=111111,T INF=1000000000> struct Shortest_Path:pu
 	//	Shortest_Path(Shortest_Path &&G)=delete;
 	//	Shortest_Path &operator=(Shortest_Path &&G)=delete;
 		void SPFA(size_t s){
-			int x,y;QI Q;Q.push(s);start(s);
-			for(d[s]=0;!Q.empty();v[x]=0,Q.pop())
-				for(auto o:V[x=Q.front()])
-					if(d[x]+o.Y<d[y=o.X])
-						if(d[y]=d[x]+o.Y,!v[y])
-							v[y]=1,Q.push(y); 
+			start(s);
+			spfa();
+		}
+		void SPFA(T *_d){
+			fr(i,n)d[i]=_d[i];
+			spfa();
 		}
 		void Dijkstra(size_t s){
-			PQ<pair<T,int> >Q;int x,y;start(s);
-			for(Q.push(MP(0,s));!Q.empty();v[x]=1)
-				if(x=Q.top().Y,Q.pop(),!v[x])
-					for(auto o:V[x=Q.front()])
-						if(d[x]+o.Y<d[y=o.X])
-							d[y]=d[x]+o.Y,Q.push(MP(-d[y],y));
+			start(s);
+			dijkstra();
+		}
+		void Dijkstra(T *_d){
+			fr(i,n)d[i]=_d[i];
+			dijkstra();
 		}
 		bool nega_ring(){
 			fr(i,n)d[i]=v[i]=0;
@@ -70,8 +89,7 @@ template<typename T=LL,size_t N=111111,T INF=1000000000> struct Shortest_Path:pu
 		}
 		void print(){fr(i,n)cout<<d[i]<<i==n?'\n':' ';}
 };
-template<typename T,size_t N,T INF>
-ostream &operator<<(ostream &os,const Shortest_Path<T,N,INF> &G){
+template<typename T,size_t N,T INF> ostream &operator<<(ostream &os,const Shortest_Path<T,N,INF> &G){
 	os<<Weight_Graph<T,N>(G);
 	fr(i,G.n)os<<"dist[ "<<i<<" ] = " <<G.d[i]<<endl;
 	return os;
