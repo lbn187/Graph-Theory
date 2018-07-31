@@ -34,7 +34,7 @@ template<typename T=LL,size_t N=111111,T INF=1000000000> struct Shortest_Path:pu
 		}
 	public:
 		Shortest_Path()=default;
-		Shortest_Path(const Shortest_Path&G):Weight_Graph<T,N>(G){fr(i,n)d[i]=G.d[i];}
+		Shortest_Path(const Shortest_Path&G){fr(i,n)d[i]=G.d[i];}
 		Shortest_Path &operator=(const Shortest_Path&G){
 			Weight_Graph<T,N>::operator()=G;
 			fr(i,n)d[i]=G.d[i];
