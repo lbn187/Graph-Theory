@@ -25,7 +25,7 @@ struct Graph{
 	int n,m;
 	VI V[N];
 	Graph()=default;
-	Graph(int _n=0):n(_n),m(0){fr(i,n)V[i].clear();}
+	Graph(int _n):n(_n),m(0){fr(i,n)V[i].clear();}
 	Graph(const Graph &G):n(G.n),m(G.m){fr(i,n)V[i]=G.V[i];}
 	Graph &operator=(const Graph &G){
 		if(this==&G)return *this;
