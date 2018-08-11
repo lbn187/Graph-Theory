@@ -16,8 +16,8 @@ struct DSU{
             return *this;
         }
         void init(int _n){n=_n;fr(i,n)F[i]=i;}
-        int fd(int x){return F[x]==x?x:F[x]=gf(F[x]);}
+        int fd(int x){return F[x]==x?x:F[x]=fd(F[x]);}
         int& operator[](int x){return F[fd(x)];}
-        void merge(int x,int y){F[gf(x)]=gf(y);}
+        void merge(int x,int y){F[fd(x)]=fd(y);}
 };
 #endif
