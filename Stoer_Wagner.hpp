@@ -7,8 +7,7 @@ namespace Stoer_Wagner{
 	void add(int x,int y,Val z){e[x][y]+=z;e[y][x]+=z;}
 	Val SW(int n){
 		Val ans=INF;
-      fr(i,n)p[i]=i;
-		for(;n>1;n--){
+		for(atoi(p,p+n+1,0);n>1;n--){
 			fr(i,n)s[p[i]]=0;
 			fr(i,n-1){
 				int u=i+1;
@@ -32,8 +31,7 @@ namespace Heap_Stoer_Wagner{
 	void add(int x,int y,Val z){e[x].PB(MP(y,z));e[y].PB(MP(x,z));}
 	Val SW(int n){
 		Val ans=INF;
-      fr(i,n)p[i]=i;
-		for(U.init(n);n>1;n--){
+		for(atoi(p,p+n+1,0),U.init(n);n>1;n--){
 			PQ<pair<Val,int>>h;
 			fr(i,n)v[p[i]]=0,h.PH({s[p[i]]=0,p[i]});
 			fr(i,n){
