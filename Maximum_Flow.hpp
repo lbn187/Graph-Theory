@@ -17,10 +17,9 @@
 #ifndef MAXIMUM_FLOW_HPP
 #define MAXIMUM_FLOW_HPP
 #include "Graph.hpp"
+#include "Graph.hpp"
 template<typename T> struct Edge{int x,y,nxt;T cap;};
-template<typename T> struct Maximum_Flow{
-	static const int N=1111;
-	static const T INF=1e9;
+template<typename T,const int N,T INF> struct Maximum_Flow{
 	int n,m,s,t;
 	int fir[N];
 	vector<Edge<T> >e;
@@ -61,12 +60,26 @@ template<typename T> struct Maximum_Flow{
 			for(int y:G.V[x])find(G,y);
 		}
 	public:
-		Maximum_Flow(int _n,int _s=0,int _t=0):n(_n),m(0),s(_s),t(_t){e.PB({0,0,0,0});e.PB({0,0,0,0});}
+		Maximum_Flow()=default;
+		Maximum_Flow(int _n):n(_n),m(0){e={{0,0,0,0},{0,0,0,0}};}
+		void init(int _n){
+			n=_n;m=0;
+			e={{0,0,0,0},{0,0,0,0}};
+		}
 		void ins(int x,int y,T z){
 			int id=e.size();
 			e.PB({x,y,fir[x],z});fir[x]=id;
 			e.PB({y,x,fir[y],0});fir[y]=id+1;
 			m++;
+		}
+		void clear(int _n=0){
+			if(_n)n=_n;
+			e={{0,0,0,0},{0,0,0,0}};
+			m=0;CL(fir);
+		}
+		void reset(){
+			for(int i=2;i<e.size();i+=2)
+				e[i].cap+=e[i+1].cap,e[i+1].cap=0;
 		}
 		T dinic(int _s,int _t,int _n=0){
 			T an=0,d;s=_s;t=_t;if(_n)n=_n;
@@ -115,13 +128,12 @@ template<typename T> struct Maximum_Flow{
 		}
 };
 template<typename T> struct udEdge{int x,y;T mi,mx;};
-template<class T> bool Updown_Feasible_Flow(vector<udEdge<T> >e,int n,vector<T>&AN){
-	static const int N=1111;
+template<typename T,const int N,T INF> bool Updown_Feasible_Flow(vector<udEdge<T> >e,int n,vector<T>&AN){
 	int ss=n+1,tt=n+2;
-	Maximum_Flow<T> G(n+2);
+	Maximum_Flow<T,N,INF> G(n+2);
 	T du[N],sum=0;
 	AN.clear();fr(i,n)du[i]=0;
-	for(udEdge<T> o:e){
+	for(auto o:e){
 		G.ins(o.x,o.y,o.mx-o.mi);
 		du[o.x]-=o.mi;du[o.y]+=o.mi;
 		AN.PB(o.mi);
@@ -135,14 +147,12 @@ template<class T> bool Updown_Feasible_Flow(vector<udEdge<T> >e,int n,vector<T>&
 		return 1;
 	}
 }
-template<class T> T Updown_Maximum_Feasible_Flow(vector<udEdge<T> >e,int n,int s,int t,vector<T> AN){
-	static const int N=1111;
-	static const T INF=1e9;
+template<typename T,const int N,T INF> T Updown_Maximum_Feasible_Flow(vector<udEdge<T> >e,int n,int s,int t,vector<T>&AN){
 	int ss=n+1,tt=n+2;
-	Maximum_Flow<T> G(n+2);
+	Maximum_Flow<T,N,INF> G(n+2);
 	T du[N],SUM=0;
 	AN.clear();fr(i,n)du[i]=0;
-	for(udEdge<T> o:e){
+	for(auto o:e){
 		G.ins(o.x,o.y,o.mx-o.mi);
 		du[o.x]-=o.mi;du[o.y]+=o.mi;
 		AN.PB(o.mi);
@@ -159,14 +169,12 @@ template<class T> T Updown_Maximum_Feasible_Flow(vector<udEdge<T> >e,int n,int s
 		return tmp;
 	}
 }
-template<class T> T Updown_Minimum_Feasible_Flow(vector<udEdge<T> >e,int n,int s,int t,vector<T> AN){
-	static const int N=1111;
-	static const T INF=1e9;
+template<typename T,const int N,T INF> T Updown_Minimum_Feasible_Flow(vector<udEdge<T> >e,int n,int s,int t,vector<T>&AN){
 	int ss=n+1,tt=n+2;
-	Maximum_Flow<T> G(n+2);
+	Maximum_Flow<T,N,INF> G(n+2);
 	T du[N],SUM=0;
 	AN.clear();fr(i,n)du[i]=0;
-	for(udEdge<T> o:e){
+	for(auto o:e){
 		G.ins(o.x,o.y,o.mx-o.mi);
 		du[o.x]-=o.mi;du[o.y]+=o.mi;
 		AN.PB(o.mi);
