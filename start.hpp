@@ -9,7 +9,10 @@
 #define TI (*this)
 #define X first
 #define Y second
-#define GT(o,x) get<x>(o)
+#define Get(o,x) get<x>(o)
+#define X(o) get<0>(o)
+#define Y(o) get<1>(o)
+#define Z(o) get<2>(o)
 #define Max(a,b) a=max(a,b)
 #define Min(a,b) a=min(a,b)
 #define sqr(x) ((x)*(x))
