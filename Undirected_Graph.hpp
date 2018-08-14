@@ -17,7 +17,8 @@ struct Undirected_Graph{
 	static const int N=111111;
 	int n,m;
 	VI V[N];
-	Undirected_Graph(int _n=0):n(_n),m(0){}
+	Undirected_Graph()=default;
+	Undirected_Graph(int _n):n(_n),m(0){}
 	Undirected_Graph(const Undirected_Graph &G):n(G.n),m(G.m){fr(i,n)V[i]=G.V[i];}
 	~Undirected_Graph(){clear();}
 	Undirected_Graph &operator=(const Undirected_Graph &G){
@@ -35,6 +36,11 @@ struct Undirected_Graph{
 	}
 	void clear(){fr(i,n)V[i].clear();m=0;}
 	void ins(int x,int y){V[x].PB(y);V[y].PB(x);m++;}
+	Graph To_Graph(){
+		Graph G(n);
+		fr(x,n)for(auto y:V[x])G.ins(x,y);
+		return G;
+	}
 };
 ostream &operator<<(ostream &os,const Undirected_Graph &G){
 	os<<"N = "<<G.n<<" , "<<"M = "<<G.m<<endl;
