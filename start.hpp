@@ -2,12 +2,14 @@
 #define START_HPP
 #include<bits/stdc++.h>
 #define MP make_pair
+#define MT make_tuple
 #define PH push
 #define PB push_back
 #define PQ priority_queue
 #define TI (*this)
 #define X first
 #define Y second
+#define GT(o,x) get<x>(o)
 #define Max(a,b) a=max(a,b)
 #define Min(a,b) a=min(a,b)
 #define sqr(x) ((x)*(x))
