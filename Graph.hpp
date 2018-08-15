@@ -25,7 +25,7 @@ struct Graph{
 	int n,m;
 	VI V[N];
 	Graph()=default;
-	Graph(int _n):n(_n),m(0){fr(i,n)V[i].clear();}
+	Graph(int _n):n(_n){}
 	Graph(const Graph &G):n(G.n),m(G.m){fr(i,n)V[i]=G.V[i];}
 	Graph &operator=(const Graph &G){
 		if(this==&G)return *this;
@@ -45,28 +45,23 @@ struct Graph{
 	void clear(){fr(i,n)V[i].clear();m=0;}
 	void ins(int x,int y){V[x].PB(y);m++;}
 };
-VI BFS(Graph G,int S){
-	VI E;queue<int>Q;bool v[G.N];
-	fr(i,G.n)v[i]=0;
-	Q.push(S);v[S]=1;
-	for(;!Q.empty();){
-		int x=Q.front();E.PB(x);Q.pop();
-		for(int y:G.V[x])if(!v[y])v[y]=1,Q.push(y);
-	}
-	return E;
+ostream &operator<<(ostream &os,const Graph &G){//重载输出
+	os<<"N = "<<G.n<<" , "<<"M = "<<G.m<<endl;
+	fr(x,G.n)for(auto y:G.V[x])os<<x<<" -> "<<y<<endl;
+	return os;
 }
-VI Topological_Sorting(Graph G){
-	int du[G.N];VI E;queue<int>Q; 
-	fr(i,G.n)du[i]=0;
-	fr(x,G.n)for(int y:G.V[x])du[y]++;
-	fr(i,G.n)if(!du[i])Q.push(i);
-	for(;!Q.empty();){
-		int x=Q.front();E.PB(x);Q.pop();
-		for(int y:G.V[x])if(!--du[y])Q.push(y);
-	}
-	return E;
+istream &operator>>(istream &is,Graph &G){//重载输入
+	is>>G.n>>G.m;
+	int x,y;
+	fr(i,G.m)is>>x>>y,G.ins(x,y);
+	return is;
 }
-Graph Anti_Graph(Graph G){
+Graph Transpose_Graph(Graph G){//反图
+	Graph _G(G.n);
+	fr(x,G.n)for(int y:G.V[x])_G.ins(y,x);
+	return _G;
+}
+Graph Anti_Graph(Graph G){//补图
 	bool vs[G.N];
 	Graph _G(G.n);
 	fr(i,G.n){
@@ -76,20 +71,25 @@ Graph Anti_Graph(Graph G){
 	}
 	return _G;
 }
-Graph Transpose_Graph(Graph G){
-	Graph _G(G.n);
-	fr(x,G.n)for(int y:G.V[x])_G.ins(y,x);
-	return _G;
+VI BFS(Graph G,int S){
+	VI E;QI Q;bool v[G.N];
+	fr(i,G.n)v[i]=0;
+	Q.PH(S);v[S]=1;
+	for(;!Q.empty();){
+		int x=Q.front();E.PB(x);Q.pop();
+		for(int y:G.V[x])if(!v[y])v[y]=1,Q.PH(y);
+	}
+	return E;
 }
-ostream &operator<<(ostream &os,const Graph &G){
-	os<<"N = "<<G.n<<" , "<<"M = "<<G.m<<endl;
-	fr(x,G.n)for(auto y:G.V[x])os<<x<<" -> "<<y<<endl;
-	return os;
-}
-istream &operator>>(istream &is,Graph &G){
-	is>>G.n>>G.m;
-	int x,y;
-	fr(i,G.m)is>>x>>y,G.ins(x,y);
-	return is;
+VI Topological_Sorting(Graph G){
+	int du[G.N];VI E;QI Q; 
+	fr(i,G.n)du[i]=0;
+	fr(x,G.n)for(int y:G.V[x])du[y]++;
+	fr(i,G.n)if(!du[i])Q.PH(i);
+	for(;!Q.empty();){
+		int x=Q.front();E.PB(x);Q.pop();
+		for(int y:G.V[x])if(!--du[y])Q.PH(y);
+	}
+	return E;
 }
 #endif
