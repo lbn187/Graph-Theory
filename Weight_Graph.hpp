@@ -37,6 +37,7 @@ template<typename T=LL,const int N=111111> struct Weight_Graph{
 		fr(i,n)V[i].swap(G.V[i]);
 		return *this;
 	}
+	void init(int _n){n=_n;clear();}
 	void clear(){fr(i,n)V[i].clear();m=0;}
 	void ins(int x,int y,T z){V[x].PB(MP(y,z));m++;}
 	Graph To_Graph(){
