@@ -41,6 +41,7 @@ struct Graph{
 		return *this;
 	}
 	~Graph(){clear();}
+	void init(int _n){n=_n;clear();}
 	void clear(){fr(i,n)V[i].clear();m=0;}
 	void ins(int x,int y){V[x].PB(y);m++;}
 };
