@@ -10,7 +10,6 @@
 #define MAXIMUM_MATCHING_HPP
 #include "Undirected_Graph.hpp"
 struct Maximum_Matching:public Undirected_Graph{
-	static const int N=555;
 	int mat[N];
 	private:
 		int W,h,t,F[N],pre[N],tp[N],q[N],vs[N];
@@ -38,7 +37,6 @@ struct Maximum_Matching:public Undirected_Graph{
 		}
 	public:
 		Maximum_Matching()=default;
-		Maximum_Matching(int _n=0):Undirected_Graph(_n){}
 		Maximum_Matching(Undirected_Graph _G):Undirected_Graph(_G){}
 		int solve(){
 			int i,an=0;W=0;
