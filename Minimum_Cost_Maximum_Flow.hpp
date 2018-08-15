@@ -26,11 +26,11 @@ struct Minimum_Cost_Maximum_Flow{
 		bool spfa(){
 			int x,y,i;QI Q;
 			fr(i,n)d[i]=INF2,v[i]=0;
-			d[s]=0;Q.push(s);v[s]=1;
+			d[s]=0;Q.PH(s);v[s]=1;
 			for(;!Q.empty();)
 				for(i=fir[x=Q.front()],Q.pop(),v[x]=0;i;i=e[i].nxt)
 					if(d[x]+e[i].co<d[y=e[i].y]&&e[i].cap>0)
-						if(d[y]=d[fa[y]=x]+e[pre[y]=i].co,!v[y])v[y]=1,Q.push(y);
+						if(d[y]=d[fa[y]=x]+e[pre[y]=i].co,!v[y])v[y]=1,Q.PH(y);
 			return d[t]<INF2;
 		}
 		void end(){
@@ -41,21 +41,21 @@ struct Minimum_Cost_Maximum_Flow{
 		bool _spfa(){
 			int x,y,i;QI Q;
 			fr(i,n)d[i]=INF2,v[i]=0;
-			for(d[t]=0,Q.push(t),v[t]=1;!Q.empty();)
+			for(d[t]=0,Q.PHt),v[t]=1;!Q.empty();)
 				for(i=fir[x=Q.front()],Q.pop(),v[x]=0;i;i=e[i].nxt)
 					if(d[x]+e[i^1].co<d[y=e[i].y]&&e[i^1].cap>0)
-						if(d[y]=d[x]+e[i^1].co,!v[y])v[y]=1,Q.push(y);
+						if(d[y]=d[x]+e[i^1].co,!v[y])v[y]=1,Q.PH(y);
 			return d[s]<INF2;
 		}
 		bool dij(){
 			PQ<pair<T2,int> >Q;int i,x,y;T2 z,w;
 			fr(i,n)d[i]=INF2;
-			for(Q.push(MP(d[s]=0,s));!Q.empty();){
+			for(Q.PH(MP(d[s]=0,s));!Q.empty();){
 				x=Q.top().Y;z=-Q.top().X;Q.pop();
 				if(d[x]!=z)continue;
 				for(i=fir[x];i;i=e[i].nxt)if(e[i].cap>0){
 					y=e[i].y;w=d[x]+h[x]-h[y]+e[i].co;
-					if(w<d[y])d[y]=w,Q.push(MP(-d[y],y));
+					if(w<d[y])d[y]=w,Q.PH(MP(-d[y],y));
 				}
 			}
 			fr(i,n)h[i]+=d[i];
