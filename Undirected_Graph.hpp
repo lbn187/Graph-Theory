@@ -34,6 +34,7 @@ struct Undirected_Graph{
 		fr(i,n)V[i].swap(G.V[i]);
 		return *this;
 	}
+	void init(int _n){n=_n;clear();}
 	void clear(){fr(i,n)V[i].clear();m=0;}
 	void ins(int x,int y){V[x].PB(y);V[y].PB(x);m++;}
 	Graph To_Graph(){
