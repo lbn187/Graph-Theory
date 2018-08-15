@@ -14,10 +14,8 @@
 #define MINIMUM_COST_MAXIMUM_FLOW_HPP
 #include "start.hpp"
 template<typename T1,typename T2>struct CostEdge{int x,y,nxt;T1 cap;T2 co;};
-template<typename T1,typename T2>struct Minimum_Cost_Maximum_Flow{
-	static const int N=444;
-	static const T1 INF1=2147483647;
-	static const T2 INF2=1e18;
+template<typename T1,typename T2,const int N,const T1 INF1,const T2,INF2>
+struct Minimum_Cost_Maximum_Flow{
 	int n,m,s,t,fir[N];
 	vector<CostEdge<T1,T2> >e;
 	private:
@@ -95,12 +93,19 @@ template<typename T1,typename T2>struct Minimum_Cost_Maximum_Flow{
 			return 1;
 		}
 	public:
-		Minimum_Cost_Maximum_Flow(int _n,int _s=0,int _t=0):n(_n),m(0),s(_s),t(_t){e.PB({0,0,0,0,0});e.PB({0,0,0,0,0});}
+	    Minimum_Cost_Maximum_Flow()=default;
+		Minimum_Cost_Maximum_Flow(int _n):n(_n){clear();}
+		void init(int _n){n=_n;clear();}
+		void clear(){m=0;e={{0,0,0,0,0},{0,0,0,0,0}};CL(fir);}
 		void ins(int x,int y,T1 cap,T2 co){
 			int id=SZ(e);
 			e.PB({x,y,fir[x],cap,co});fir[x]=id;
 			e.PB({y,x,fir[y],0,-co});fir[y]=id+1;
 			m++;
+		}
+		void reset(){
+			for(int i=2;i<SZ(e);i+=2)
+				e[i].cap+=e[i+1].cap,e[i+1].cap=0;
 		}
 		pair<T1,T2> SPFA(int _s,int _t,int _n=0){
 			s=_s;t=_t;fl=0;an=0;if(_n)n=_n;
